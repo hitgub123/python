@@ -1,0 +1,143 @@
+[
+    {
+        "label": "torch",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "torch",
+        "description": "torch",
+        "detail": "torch",
+        "documentation": {}
+    },
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "WordCloud",
+        "importPath": "wordcloud",
+        "description": "wordcloud",
+        "isExtraImport": true,
+        "detail": "wordcloud",
+        "documentation": {}
+    },
+    {
+        "label": "ImageColorGenerator",
+        "importPath": "wordcloud",
+        "description": "wordcloud",
+        "isExtraImport": true,
+        "detail": "wordcloud",
+        "documentation": {}
+    },
+    {
+        "label": "matplotlib.pyplot",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "matplotlib.pyplot",
+        "description": "matplotlib.pyplot",
+        "detail": "matplotlib.pyplot",
+        "documentation": {}
+    },
+    {
+        "label": "device",
+        "kind": 5,
+        "importPath": "pytorch.learn1.3",
+        "description": "pytorch.learn1.3",
+        "peekOfCode": "device = tc.device(\"cuda:0\" if tc.cuda.is_available() else \"cpu\")\nprint(device)\nx=np.array([i for i in range(11)],np.float32)\ny=x*2+1\nx_train=x.reshape(-1,1)\ny_train=y.reshape(-1,1)\n# print(x_train,y_train)\nmodel=tc.nn.Linear(1,1)\n# print(model)\nepochs=1000",
+        "detail": "pytorch.learn1.3",
+        "documentation": {}
+    },
+    {
+        "label": "f",
+        "kind": 5,
+        "importPath": "pytorch.learn1.5",
+        "description": "pytorch.learn1.5",
+        "peekOfCode": "f = open(\"5.txt\",'w')\n#写\nf.write(\"hello world!\")\n#、关闭\nf.close()\n# 打开\nf = open(\"5.txt\")\n# 读\nprint(f.read())",
+        "detail": "pytorch.learn1.5",
+        "documentation": {}
+    },
+    {
+        "label": "f",
+        "kind": 5,
+        "importPath": "pytorch.learn1.5",
+        "description": "pytorch.learn1.5",
+        "peekOfCode": "f = open(\"5.txt\")\n# 读\nprint(f.read())",
+        "detail": "pytorch.learn1.5",
+        "documentation": {}
+    },
+    {
+        "label": "df",
+        "kind": 5,
+        "importPath": "pytorch.learn1.6",
+        "description": "pytorch.learn1.6",
+        "peekOfCode": "df = pd.read_excel('数据.xlsx',sheet_name=0,engine='openpyxl')   # 读取excel数据信息\ndata=pd.DataFrame(index=df['关键词'])                            # 新生成一个DF文件，index为df的index\ndata['权重']=0     # data生成一个值均为0的列，主要定义这一列为int格式，为下面赋值做准备\n# 将df的数据复制到 data中\nfor i in range(0,len(df)):\n    data.iloc[i,0]=df.iloc[i,1]\n#\ndata = data['权重'].sort_values(ascending = False)    # 排序\ndata = dict(data)     # 生成dict格式数据\nfont_path='F:/教学类材料//SourceHanSansCN-Regular.ttf'",
+        "detail": "pytorch.learn1.6",
+        "documentation": {}
+    },
+    {
+        "label": "data",
+        "kind": 5,
+        "importPath": "pytorch.learn1.6",
+        "description": "pytorch.learn1.6",
+        "peekOfCode": "data = data['权重'].sort_values(ascending = False)    # 排序\ndata = dict(data)     # 生成dict格式数据\nfont_path='F:/教学类材料//SourceHanSansCN-Regular.ttf'\n# 读取背景图片\nbackground_Image = np.array(Image.open(\"枫叶2.jpg\"))\n# 提取背景图片颜色\nimg_colors = ImageColorGenerator(background_Image)\n#创建画板\nplt.figure(figsize=(10,8),dpi=1000)    # 创建画板 ,定义图形大小及分辨率\nmask = plt.imread(r\"枫叶.jpg\")          #自定义背景图片",
+        "detail": "pytorch.learn1.6",
+        "documentation": {}
+    },
+    {
+        "label": "data",
+        "kind": 5,
+        "importPath": "pytorch.learn1.6",
+        "description": "pytorch.learn1.6",
+        "peekOfCode": "data = dict(data)     # 生成dict格式数据\nfont_path='F:/教学类材料//SourceHanSansCN-Regular.ttf'\n# 读取背景图片\nbackground_Image = np.array(Image.open(\"枫叶2.jpg\"))\n# 提取背景图片颜色\nimg_colors = ImageColorGenerator(background_Image)\n#创建画板\nplt.figure(figsize=(10,8),dpi=1000)    # 创建画板 ,定义图形大小及分辨率\nmask = plt.imread(r\"枫叶.jpg\")          #自定义背景图片\n# 设置词云图相关参数",
+        "detail": "pytorch.learn1.6",
+        "documentation": {}
+    },
+    {
+        "label": "background_Image",
+        "kind": 5,
+        "importPath": "pytorch.learn1.6",
+        "description": "pytorch.learn1.6",
+        "peekOfCode": "background_Image = np.array(Image.open(\"枫叶2.jpg\"))\n# 提取背景图片颜色\nimg_colors = ImageColorGenerator(background_Image)\n#创建画板\nplt.figure(figsize=(10,8),dpi=1000)    # 创建画板 ,定义图形大小及分辨率\nmask = plt.imread(r\"枫叶.jpg\")          #自定义背景图片\n# 设置词云图相关参数\nwc=WordCloud(mask=mask,\n             font_path=font_path,\n             width=800,height=500,",
+        "detail": "pytorch.learn1.6",
+        "documentation": {}
+    },
+    {
+        "label": "img_colors",
+        "kind": 5,
+        "importPath": "pytorch.learn1.6",
+        "description": "pytorch.learn1.6",
+        "peekOfCode": "img_colors = ImageColorGenerator(background_Image)\n#创建画板\nplt.figure(figsize=(10,8),dpi=1000)    # 创建画板 ,定义图形大小及分辨率\nmask = plt.imread(r\"枫叶.jpg\")          #自定义背景图片\n# 设置词云图相关参数\nwc=WordCloud(mask=mask,\n             font_path=font_path,\n             width=800,height=500,\n             scale=2,mode=\"RGBA\",\n             background_color='white') ",
+        "detail": "pytorch.learn1.6",
+        "documentation": {}
+    },
+    {
+        "label": "mask",
+        "kind": 5,
+        "importPath": "pytorch.learn1.6",
+        "description": "pytorch.learn1.6",
+        "peekOfCode": "mask = plt.imread(r\"枫叶.jpg\")          #自定义背景图片\n# 设置词云图相关参数\nwc=WordCloud(mask=mask,\n             font_path=font_path,\n             width=800,height=500,\n             scale=2,mode=\"RGBA\",\n             background_color='white') \nwc=wc.generate_from_frequencies(data)  # 利用生成的dict文件制作词云图\n#根据图片色设置背景色\nwc.recolor(color_func=img_colors)",
+        "detail": "pytorch.learn1.6",
+        "documentation": {}
+    }
+]
