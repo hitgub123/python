@@ -36,15 +36,18 @@ optimizer=tc.optim.Adam(model.parameters(),lr=lr)
 for i in range(epochs):
     batch_loss=[]
     for start in range(0,data_size,batch_size):
-        end= start+batch_size if start+batch_size<data_size else data_size-1
+        optimizer.zero_grad()
+        end= start+batch_size if start+batch_size<data_size else data_size
         x,y=inputs[start:end],labels[start:end]
         prediction=model(x)
         loss=cost(prediction,y)
         loss.backward()
         # loss.backward(retain_graph=True)
         optimizer.step()
-        optimizer.zero_grad()
         batch_loss.append(loss.item())
     
     if not i%100:
         print(i,tc.tensor(batch_loss).mean().item())
+model_name='pytorch/learn1/models/搭建pytorch神经网络进行气温预测.pkl'
+tc.save(model.state_dict(),model_name)
+#model.load_state_dict(tc.load(model_name,weights_only=0))

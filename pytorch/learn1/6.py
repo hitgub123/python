@@ -1,43 +1,48 @@
-import pandas as pd
-import numpy as np
-from PIL import Image      # 读取图片的包
-from wordcloud import WordCloud,ImageColorGenerator   # 做词云图
-import matplotlib.pyplot as plt   # 作图
+import torch as tc,numpy as np,pandas as pd
+from sklearn import preprocessing
 
-df = pd.read_excel('数据.xlsx',sheet_name=0,engine='openpyxl')   # 读取excel数据信息
-data=pd.DataFrame(index=df['关键词'])                            # 新生成一个DF文件，index为df的index
-data['权重']=0     # data生成一个值均为0的列，主要定义这一列为int格式，为下面赋值做准备
-# 将df的数据复制到 data中
-for i in range(0,len(df)):
-    data.iloc[i,0]=df.iloc[i,1]
-#
-data = data['权重'].sort_values(ascending = False)    # 排序
-data = dict(data)     # 生成dict格式数据
+features=pd.read_csv('pytorch/learn1/datas/temps.csv')
+# 独热编码
+features=pd.get_dummies(features)
 
-font_path='F:/教学类材料//SourceHanSansCN-Regular.ttf'
+labels=features['actual']
+features=features.drop(['actual','friend'],axis=1)
+features=np.array(features,dtype=np.float64)
+features=preprocessing.StandardScaler().fit_transform(features)
 
-# 读取背景图片
-background_Image = np.array(Image.open("枫叶2.jpg"))
-# 提取背景图片颜色
-img_colors = ImageColorGenerator(background_Image)
+inputs=tc.tensor(features,dtype=float)
+labels=tc.tensor(np.array(labels).reshape(-1,1),dtype=float)
 
-#创建画板
-plt.figure(figsize=(10,8),dpi=1000)    # 创建画板 ,定义图形大小及分辨率
-mask = plt.imread(r"枫叶.jpg")          #自定义背景图片
-# 设置词云图相关参数
-wc=WordCloud(mask=mask,
-             font_path=font_path,
-             width=800,height=500,
-             scale=2,mode="RGBA",
-             background_color='white') 
-wc=wc.generate_from_frequencies(data)  # 利用生成的dict文件制作词云图
-#根据图片色设置背景色
-wc.recolor(color_func=img_colors)
+#####################################################
+#################### model ##########################
+#####################################################
+hidden_size=128
+data_size=inputs.shape[0]
+input_size=inputs.shape[-1]
+output_size=1
+batch_size=16
+lr=0.001
+epochs=1000
 
-#存储图像
-wc.to_file('词云图1.png')
+model=tc.nn.Sequential(
+    tc.nn.Linear(input_size,hidden_size,dtype=float),
+    # tc.nn.ReLU(),
+    tc.nn.Sigmoid(),
+    tc.nn.Linear(hidden_size,output_size,dtype=float),
+)
+model_name='pytorch/learn1/models/搭建pytorch神经网络进行气温预测.pkl'
+# model.load_state_dict(tc.load(model_name,weights_only=0))
+cost=tc.nn.MSELoss(reduction='mean')
+optimizer=tc.optim.Adam(model.parameters(),lr=lr)
 
-#显示图片
-plt.imshow(wc,interpolation="bilinear")
-plt.axis("off")
-plt.savefig("词云图2.png")
+for i in range(epochs):
+    batch_loss=[]
+    for start in range(0,data_size,batch_size):
+        end= start+batch_size if start+batch_size<data_size else data_size-1
+        x,y=inputs[start:end],labels[start:end]
+        prediction=model(x)
+        loss=cost(prediction,y)
+        batch_loss.append(loss.item())
+    
+    if not i%100:
+        print(i,tc.tensor(batch_loss).mean().item())
