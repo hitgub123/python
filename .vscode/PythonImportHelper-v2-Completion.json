@@ -49,14 +49,6 @@
         "documentation": {}
     },
     {
-        "label": "preprocessing",
-        "importPath": "sklearn",
-        "description": "sklearn",
-        "isExtraImport": true,
-        "detail": "sklearn",
-        "documentation": {}
-    },
-    {
         "label": "fetch_openml",
         "importPath": "sklearn.datasets",
         "description": "sklearn.datasets",
@@ -70,24 +62,6 @@
         "description": "sklearn.datasets",
         "isExtraImport": true,
         "detail": "sklearn.datasets",
-        "documentation": {}
-    },
-    {
-        "label": "pandas",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "pandas",
-        "description": "pandas",
-        "detail": "pandas",
-        "documentation": {}
-    },
-    {
-        "label": "numpy",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "numpy",
-        "description": "numpy",
-        "detail": "numpy",
         "documentation": {}
     },
     {
@@ -104,7 +78,7 @@
         "kind": 2,
         "importPath": "pytorch.learn1.002_mnist预测",
         "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "def test():\n    model.load_state_dict(tc.load(model_name, weights_only=0))\n    prediction = model(X_test).argmax(axis=1)\n    acc_rate = (prediction == y_test).sum() / y_test.size()[0]\n    print(acc_rate.item())\n    print(model)\n    for i,j in enumerate(model.named_parameters()):\n        print(i,j)\nif __name__ == \"__main__\":\n    train()",
+        "peekOfCode": "def test():\n    model.load_state_dict(tc.load(model_name, weights_only=0))\n    prediction = model(X_test).argmax(axis=1)\n    acc_rate = (prediction == y_test).sum() / y_test.size()[0]\n    print(acc_rate.item())\n    # print(model)\n    # for i,j in enumerate(model.named_parameters()):\n    #     print(i,j)\nif __name__ == \"__main__\":\n    train()",
         "detail": "pytorch.learn1.002_mnist预测",
         "documentation": {}
     },
@@ -277,33 +251,6 @@
         "description": "pytorch.learn1.002_mnist预测",
         "peekOfCode": "optimizer = tc.optim.Adam(model.parameters(), lr=lr)\ndef train():\n    for i in range(epochs):\n        batch_loss = []\n        for start in range(0, data_size, batch_size):\n            optimizer.zero_grad()\n            end = start + batch_size if start + batch_size < data_size else data_size \n            x, y = X_train[start:end], y_train[start:end]\n            prediction = model(x)\n            loss = cost(prediction, y)",
         "detail": "pytorch.learn1.002_mnist预测",
-        "documentation": {}
-    },
-    {
-        "label": "device",
-        "kind": 5,
-        "importPath": "pytorch.learn1.3",
-        "description": "pytorch.learn1.3",
-        "peekOfCode": "device = tc.device(\"cuda:0\" if tc.cuda.is_available() else \"cpu\")\nprint(device)\nx=np.array([i for i in range(11)],np.float32)\ny=x*2+1\nx_train=x.reshape(-1,1)\ny_train=y.reshape(-1,1)\n# print(x_train,y_train)\nmodel=tc.nn.Linear(1,1)\n# print(model)\nepochs=1000",
-        "detail": "pytorch.learn1.3",
-        "documentation": {}
-    },
-    {
-        "label": "f",
-        "kind": 5,
-        "importPath": "pytorch.learn1.5",
-        "description": "pytorch.learn1.5",
-        "peekOfCode": "f = open(\"5.txt\",'w')\n#写\nf.write(\"hello world!\")\n#、关闭\nf.close()\n# 打开\nf = open(\"5.txt\")\n# 读\nprint(f.read())",
-        "detail": "pytorch.learn1.5",
-        "documentation": {}
-    },
-    {
-        "label": "f",
-        "kind": 5,
-        "importPath": "pytorch.learn1.5",
-        "description": "pytorch.learn1.5",
-        "peekOfCode": "f = open(\"5.txt\")\n# 读\nprint(f.read())",
-        "detail": "pytorch.learn1.5",
         "documentation": {}
     },
     {
