@@ -49,6 +49,14 @@
         "documentation": {}
     },
     {
+        "label": "preprocessing",
+        "importPath": "sklearn",
+        "description": "sklearn",
+        "isExtraImport": true,
+        "detail": "sklearn",
+        "documentation": {}
+    },
+    {
         "label": "fetch_openml",
         "importPath": "sklearn.datasets",
         "description": "sklearn.datasets",
@@ -65,200 +73,919 @@
         "documentation": {}
     },
     {
-        "label": "train",
-        "kind": 2,
-        "importPath": "pytorch.learn1.002_mnist预测",
-        "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "def train():\n    for i in range(epochs):\n        batch_loss = []\n        for start in range(0, data_size, batch_size):\n            optimizer.zero_grad()\n            end = start + batch_size if start + batch_size < data_size else data_size \n            x, y = X_train[start:end], y_train[start:end]\n            prediction = model(x)\n            loss = cost(prediction, y)\n            loss.backward()",
-        "detail": "pytorch.learn1.002_mnist预测",
+        "label": "fetch_openml",
+        "importPath": "sklearn.datasets",
+        "description": "sklearn.datasets",
+        "isExtraImport": true,
+        "detail": "sklearn.datasets",
         "documentation": {}
     },
     {
-        "label": "test",
-        "kind": 2,
-        "importPath": "pytorch.learn1.002_mnist预测",
-        "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "def test():\n    model.load_state_dict(tc.load(model_name, weights_only=0))\n    prediction = model(X_test).argmax(axis=1)\n    acc_rate = (prediction == y_test).sum() / y_test.size()[0]\n    print(acc_rate.item())\n    # print(model)\n    # for i,j in enumerate(model.named_parameters()):\n    #     print(i,j)\nif __name__ == \"__main__\":\n    train()",
-        "detail": "pytorch.learn1.002_mnist预测",
-        "documentation": {}
-    },
-    {
-        "label": "mnist",
+        "label": "features",
         "kind": 5,
-        "importPath": "pytorch.learn1.002_mnist预测",
-        "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "mnist = fetch_openml(\"mnist_784\", version=1, cache=True)\nmnist.target = mnist.target.astype(np.int8)\nX, y = mnist[\"data\"], mnist[\"target\"]\nX[:60000].to_numpy()\nX_train, X_test, y_train, y_test = map(\n    lambda df: df.to_numpy(), (X[:60000], X[60000:], y[:60000], y[60000:])\n)\n# 洗牌训练集\nshuffle_index = np.random.permutation(60000)\nX_train, y_train = X_train[shuffle_index], y_train[shuffle_index]",
-        "detail": "pytorch.learn1.002_mnist预测",
+        "importPath": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "description": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "peekOfCode": "features = pd.read_csv(\"pytorch/learn1/datas/temps.csv\")\n# 独热编码\nfeatures = pd.get_dummies(features)\n# print(features.head(),features.shape)\nyears = features[\"year\"]\nmonths = features[\"month\"]\ndays = features[\"day\"]\ndates = [\"{}-{}-{}\".format(y, m, d) for y, m, d in zip(years, months, days)]\ndates = [datetime.datetime.strptime(date, \"%Y-%m-%d\") for date in dates]\nlabels = features[\"actual\"]",
+        "detail": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
         "documentation": {}
     },
     {
-        "label": "mnist.target",
+        "label": "features",
         "kind": 5,
-        "importPath": "pytorch.learn1.002_mnist预测",
-        "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "mnist.target = mnist.target.astype(np.int8)\nX, y = mnist[\"data\"], mnist[\"target\"]\nX[:60000].to_numpy()\nX_train, X_test, y_train, y_test = map(\n    lambda df: df.to_numpy(), (X[:60000], X[60000:], y[:60000], y[60000:])\n)\n# 洗牌训练集\nshuffle_index = np.random.permutation(60000)\nX_train, y_train = X_train[shuffle_index], y_train[shuffle_index]\nX_train = preprocessing.StandardScaler().fit_transform(X_train)",
-        "detail": "pytorch.learn1.002_mnist预测",
+        "importPath": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "description": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "peekOfCode": "features = pd.get_dummies(features)\n# print(features.head(),features.shape)\nyears = features[\"year\"]\nmonths = features[\"month\"]\ndays = features[\"day\"]\ndates = [\"{}-{}-{}\".format(y, m, d) for y, m, d in zip(years, months, days)]\ndates = [datetime.datetime.strptime(date, \"%Y-%m-%d\") for date in dates]\nlabels = features[\"actual\"]\nfeatures = features.drop(\"actual\", axis=1)\nfeatures = features.drop(\"friend\", axis=1)",
+        "detail": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
         "documentation": {}
     },
     {
-        "label": "shuffle_index",
+        "label": "years",
         "kind": 5,
-        "importPath": "pytorch.learn1.002_mnist预测",
-        "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "shuffle_index = np.random.permutation(60000)\nX_train, y_train = X_train[shuffle_index], y_train[shuffle_index]\nX_train = preprocessing.StandardScaler().fit_transform(X_train)\nX_test = preprocessing.StandardScaler().fit_transform(X_test)\n# y_train = pd.get_dummies(y_train)\n# y_test = pd.get_dummies(y_test)\nX_train, y_train, X_test, y_test = map(tc.tensor, (X_train, y_train, X_test, y_test))\nX_train, X_test = X_train.to(tc.float64), X_test.to(tc.float64)\ny_train, y_test = y_train.to(tc.long), y_test.to(tc.long)\ny_train = tc.nn.functional.one_hot(y_train, num_classes=10)",
-        "detail": "pytorch.learn1.002_mnist预测",
+        "importPath": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "description": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "peekOfCode": "years = features[\"year\"]\nmonths = features[\"month\"]\ndays = features[\"day\"]\ndates = [\"{}-{}-{}\".format(y, m, d) for y, m, d in zip(years, months, days)]\ndates = [datetime.datetime.strptime(date, \"%Y-%m-%d\") for date in dates]\nlabels = features[\"actual\"]\nfeatures = features.drop(\"actual\", axis=1)\nfeatures = features.drop(\"friend\", axis=1)\ntitles = list(features.columns)\n# print(type(labels),type(features),features.head(),features.shape,titles)",
+        "detail": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
         "documentation": {}
     },
     {
-        "label": "X_train",
+        "label": "months",
         "kind": 5,
-        "importPath": "pytorch.learn1.002_mnist预测",
-        "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "X_train = preprocessing.StandardScaler().fit_transform(X_train)\nX_test = preprocessing.StandardScaler().fit_transform(X_test)\n# y_train = pd.get_dummies(y_train)\n# y_test = pd.get_dummies(y_test)\nX_train, y_train, X_test, y_test = map(tc.tensor, (X_train, y_train, X_test, y_test))\nX_train, X_test = X_train.to(tc.float64), X_test.to(tc.float64)\ny_train, y_test = y_train.to(tc.long), y_test.to(tc.long)\ny_train = tc.nn.functional.one_hot(y_train, num_classes=10)\ny_train = y_train.to(tc.float64)\n#####################################################",
-        "detail": "pytorch.learn1.002_mnist预测",
+        "importPath": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "description": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "peekOfCode": "months = features[\"month\"]\ndays = features[\"day\"]\ndates = [\"{}-{}-{}\".format(y, m, d) for y, m, d in zip(years, months, days)]\ndates = [datetime.datetime.strptime(date, \"%Y-%m-%d\") for date in dates]\nlabels = features[\"actual\"]\nfeatures = features.drop(\"actual\", axis=1)\nfeatures = features.drop(\"friend\", axis=1)\ntitles = list(features.columns)\n# print(type(labels),type(features),features.head(),features.shape,titles)\nfeatures = np.array(features, dtype=np.float64)",
+        "detail": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
         "documentation": {}
     },
     {
-        "label": "X_test",
+        "label": "days",
         "kind": 5,
-        "importPath": "pytorch.learn1.002_mnist预测",
-        "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "X_test = preprocessing.StandardScaler().fit_transform(X_test)\n# y_train = pd.get_dummies(y_train)\n# y_test = pd.get_dummies(y_test)\nX_train, y_train, X_test, y_test = map(tc.tensor, (X_train, y_train, X_test, y_test))\nX_train, X_test = X_train.to(tc.float64), X_test.to(tc.float64)\ny_train, y_test = y_train.to(tc.long), y_test.to(tc.long)\ny_train = tc.nn.functional.one_hot(y_train, num_classes=10)\ny_train = y_train.to(tc.float64)\n#####################################################\n#################### model ##########################",
-        "detail": "pytorch.learn1.002_mnist预测",
+        "importPath": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "description": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "peekOfCode": "days = features[\"day\"]\ndates = [\"{}-{}-{}\".format(y, m, d) for y, m, d in zip(years, months, days)]\ndates = [datetime.datetime.strptime(date, \"%Y-%m-%d\") for date in dates]\nlabels = features[\"actual\"]\nfeatures = features.drop(\"actual\", axis=1)\nfeatures = features.drop(\"friend\", axis=1)\ntitles = list(features.columns)\n# print(type(labels),type(features),features.head(),features.shape,titles)\nfeatures = np.array(features, dtype=np.float64)\nfeatures = preprocessing.StandardScaler().fit_transform(features)",
+        "detail": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
         "documentation": {}
     },
     {
-        "label": "y_train",
+        "label": "dates",
         "kind": 5,
-        "importPath": "pytorch.learn1.002_mnist预测",
-        "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "y_train = tc.nn.functional.one_hot(y_train, num_classes=10)\ny_train = y_train.to(tc.float64)\n#####################################################\n#################### model ##########################\n#####################################################\nhidden_size1 = 128\nhidden_size2 = 70\ndata_size = X_train.shape[0]\ninput_size = X_train.shape[-1]\noutput_size = 10",
-        "detail": "pytorch.learn1.002_mnist预测",
+        "importPath": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "description": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "peekOfCode": "dates = [\"{}-{}-{}\".format(y, m, d) for y, m, d in zip(years, months, days)]\ndates = [datetime.datetime.strptime(date, \"%Y-%m-%d\") for date in dates]\nlabels = features[\"actual\"]\nfeatures = features.drop(\"actual\", axis=1)\nfeatures = features.drop(\"friend\", axis=1)\ntitles = list(features.columns)\n# print(type(labels),type(features),features.head(),features.shape,titles)\nfeatures = np.array(features, dtype=np.float64)\nfeatures = preprocessing.StandardScaler().fit_transform(features)\ninputs = tc.tensor(features, dtype=float)",
+        "detail": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
         "documentation": {}
     },
     {
-        "label": "y_train",
+        "label": "dates",
         "kind": 5,
-        "importPath": "pytorch.learn1.002_mnist预测",
-        "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "y_train = y_train.to(tc.float64)\n#####################################################\n#################### model ##########################\n#####################################################\nhidden_size1 = 128\nhidden_size2 = 70\ndata_size = X_train.shape[0]\ninput_size = X_train.shape[-1]\noutput_size = 10\nbatch_size = 128",
-        "detail": "pytorch.learn1.002_mnist预测",
+        "importPath": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "description": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "peekOfCode": "dates = [datetime.datetime.strptime(date, \"%Y-%m-%d\") for date in dates]\nlabels = features[\"actual\"]\nfeatures = features.drop(\"actual\", axis=1)\nfeatures = features.drop(\"friend\", axis=1)\ntitles = list(features.columns)\n# print(type(labels),type(features),features.head(),features.shape,titles)\nfeatures = np.array(features, dtype=np.float64)\nfeatures = preprocessing.StandardScaler().fit_transform(features)\ninputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)",
+        "detail": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
         "documentation": {}
     },
     {
-        "label": "hidden_size1",
+        "label": "labels",
         "kind": 5,
-        "importPath": "pytorch.learn1.002_mnist预测",
-        "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "hidden_size1 = 128\nhidden_size2 = 70\ndata_size = X_train.shape[0]\ninput_size = X_train.shape[-1]\noutput_size = 10\nbatch_size = 128\nlr = 0.001\nepochs = 200\nmodel_name = \"pytorch/learn1/models/mnist.pkl\"\nmodel = tc.nn.Sequential(",
-        "detail": "pytorch.learn1.002_mnist预测",
+        "importPath": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "description": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "peekOfCode": "labels = features[\"actual\"]\nfeatures = features.drop(\"actual\", axis=1)\nfeatures = features.drop(\"friend\", axis=1)\ntitles = list(features.columns)\n# print(type(labels),type(features),features.head(),features.shape,titles)\nfeatures = np.array(features, dtype=np.float64)\nfeatures = preprocessing.StandardScaler().fit_transform(features)\ninputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n# 归一化到 [-1, 1]",
+        "detail": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
         "documentation": {}
     },
     {
-        "label": "hidden_size2",
+        "label": "features",
         "kind": 5,
-        "importPath": "pytorch.learn1.002_mnist预测",
-        "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "hidden_size2 = 70\ndata_size = X_train.shape[0]\ninput_size = X_train.shape[-1]\noutput_size = 10\nbatch_size = 128\nlr = 0.001\nepochs = 200\nmodel_name = \"pytorch/learn1/models/mnist.pkl\"\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size1, dtype=float),",
-        "detail": "pytorch.learn1.002_mnist预测",
+        "importPath": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "description": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "peekOfCode": "features = features.drop(\"actual\", axis=1)\nfeatures = features.drop(\"friend\", axis=1)\ntitles = list(features.columns)\n# print(type(labels),type(features),features.head(),features.shape,titles)\nfeatures = np.array(features, dtype=np.float64)\nfeatures = preprocessing.StandardScaler().fit_transform(features)\ninputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n# 归一化到 [-1, 1]\n# min_vals = inputs.min(dim=0, keepdim=True)[0]",
+        "detail": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
         "documentation": {}
     },
     {
-        "label": "data_size",
+        "label": "features",
         "kind": 5,
-        "importPath": "pytorch.learn1.002_mnist预测",
-        "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "data_size = X_train.shape[0]\ninput_size = X_train.shape[-1]\noutput_size = 10\nbatch_size = 128\nlr = 0.001\nepochs = 200\nmodel_name = \"pytorch/learn1/models/mnist.pkl\"\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size1, dtype=float),\n    tc.nn.ReLU(),",
-        "detail": "pytorch.learn1.002_mnist预测",
+        "importPath": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "description": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "peekOfCode": "features = features.drop(\"friend\", axis=1)\ntitles = list(features.columns)\n# print(type(labels),type(features),features.head(),features.shape,titles)\nfeatures = np.array(features, dtype=np.float64)\nfeatures = preprocessing.StandardScaler().fit_transform(features)\ninputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n# 归一化到 [-1, 1]\n# min_vals = inputs.min(dim=0, keepdim=True)[0]\n# max_vals = inputs.max(dim=0, keepdim=True)[0]",
+        "detail": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
         "documentation": {}
     },
     {
-        "label": "input_size",
+        "label": "titles",
         "kind": 5,
-        "importPath": "pytorch.learn1.002_mnist预测",
-        "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "input_size = X_train.shape[-1]\noutput_size = 10\nbatch_size = 128\nlr = 0.001\nepochs = 200\nmodel_name = \"pytorch/learn1/models/mnist.pkl\"\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size1, dtype=float),\n    tc.nn.ReLU(),\n    tc.nn.Linear(hidden_size1, hidden_size2, dtype=float),",
-        "detail": "pytorch.learn1.002_mnist预测",
+        "importPath": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "description": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "peekOfCode": "titles = list(features.columns)\n# print(type(labels),type(features),features.head(),features.shape,titles)\nfeatures = np.array(features, dtype=np.float64)\nfeatures = preprocessing.StandardScaler().fit_transform(features)\ninputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n# 归一化到 [-1, 1]\n# min_vals = inputs.min(dim=0, keepdim=True)[0]\n# max_vals = inputs.max(dim=0, keepdim=True)[0]\n# 标准化到 [0, 1]",
+        "detail": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
         "documentation": {}
     },
     {
-        "label": "output_size",
+        "label": "features",
         "kind": 5,
-        "importPath": "pytorch.learn1.002_mnist预测",
-        "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "output_size = 10\nbatch_size = 128\nlr = 0.001\nepochs = 200\nmodel_name = \"pytorch/learn1/models/mnist.pkl\"\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size1, dtype=float),\n    tc.nn.ReLU(),\n    tc.nn.Linear(hidden_size1, hidden_size2, dtype=float),\n    tc.nn.ReLU(),",
-        "detail": "pytorch.learn1.002_mnist预测",
+        "importPath": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "description": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "peekOfCode": "features = np.array(features, dtype=np.float64)\nfeatures = preprocessing.StandardScaler().fit_transform(features)\ninputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n# 归一化到 [-1, 1]\n# min_vals = inputs.min(dim=0, keepdim=True)[0]\n# max_vals = inputs.max(dim=0, keepdim=True)[0]\n# 标准化到 [0, 1]\n# inputs = (inputs - min_vals) / (max_vals - min_vals).clamp(min=1e-6)\n# print(inputs.size(),labels.shape,inputs)",
+        "detail": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
         "documentation": {}
     },
     {
-        "label": "batch_size",
+        "label": "features",
         "kind": 5,
-        "importPath": "pytorch.learn1.002_mnist预测",
-        "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "batch_size = 128\nlr = 0.001\nepochs = 200\nmodel_name = \"pytorch/learn1/models/mnist.pkl\"\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size1, dtype=float),\n    tc.nn.ReLU(),\n    tc.nn.Linear(hidden_size1, hidden_size2, dtype=float),\n    tc.nn.ReLU(),\n    # tc.nn.Sigmoid(),",
-        "detail": "pytorch.learn1.002_mnist预测",
+        "importPath": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "description": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "peekOfCode": "features = preprocessing.StandardScaler().fit_transform(features)\ninputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n# 归一化到 [-1, 1]\n# min_vals = inputs.min(dim=0, keepdim=True)[0]\n# max_vals = inputs.max(dim=0, keepdim=True)[0]\n# 标准化到 [0, 1]\n# inputs = (inputs - min_vals) / (max_vals - min_vals).clamp(min=1e-6)\n# print(inputs.size(),labels.shape,inputs)\n#####################################################",
+        "detail": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
         "documentation": {}
     },
     {
-        "label": "lr",
+        "label": "inputs",
         "kind": 5,
-        "importPath": "pytorch.learn1.002_mnist预测",
-        "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "lr = 0.001\nepochs = 200\nmodel_name = \"pytorch/learn1/models/mnist.pkl\"\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size1, dtype=float),\n    tc.nn.ReLU(),\n    tc.nn.Linear(hidden_size1, hidden_size2, dtype=float),\n    tc.nn.ReLU(),\n    # tc.nn.Sigmoid(),\n    tc.nn.Linear(hidden_size2, output_size, dtype=float),",
-        "detail": "pytorch.learn1.002_mnist预测",
+        "importPath": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "description": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "peekOfCode": "inputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n# 归一化到 [-1, 1]\n# min_vals = inputs.min(dim=0, keepdim=True)[0]\n# max_vals = inputs.max(dim=0, keepdim=True)[0]\n# 标准化到 [0, 1]\n# inputs = (inputs - min_vals) / (max_vals - min_vals).clamp(min=1e-6)\n# print(inputs.size(),labels.shape,inputs)\n#####################################################\n#################### model ##########################",
+        "detail": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "documentation": {}
+    },
+    {
+        "label": "labels",
+        "kind": 5,
+        "importPath": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "description": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "peekOfCode": "labels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n# 归一化到 [-1, 1]\n# min_vals = inputs.min(dim=0, keepdim=True)[0]\n# max_vals = inputs.max(dim=0, keepdim=True)[0]\n# 标准化到 [0, 1]\n# inputs = (inputs - min_vals) / (max_vals - min_vals).clamp(min=1e-6)\n# print(inputs.size(),labels.shape,inputs)\n#####################################################\n#################### model ##########################\n#####################################################",
+        "detail": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
         "documentation": {}
     },
     {
         "label": "epochs",
         "kind": 5,
-        "importPath": "pytorch.learn1.002_mnist预测",
-        "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "epochs = 200\nmodel_name = \"pytorch/learn1/models/mnist.pkl\"\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size1, dtype=float),\n    tc.nn.ReLU(),\n    tc.nn.Linear(hidden_size1, hidden_size2, dtype=float),\n    tc.nn.ReLU(),\n    # tc.nn.Sigmoid(),\n    tc.nn.Linear(hidden_size2, output_size, dtype=float),\n)",
-        "detail": "pytorch.learn1.002_mnist预测",
+        "importPath": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "description": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "peekOfCode": "epochs = 1000\nlearn_rate = 0.01\nmodel = tc.nn.Linear(inputs.shape[-1], labels.shape[-1], dtype=tc.float64)\noptimizer = tc.optim.SGD(model.parameters(), lr=learn_rate)\ncriterion = tc.nn.MSELoss()\nfor i in range(epochs):\n    optimizer.zero_grad()\n    outputs = model(inputs)\n    loss = criterion(labels, outputs)\n    loss.backward()",
+        "detail": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
         "documentation": {}
     },
     {
-        "label": "model_name",
+        "label": "learn_rate",
         "kind": 5,
-        "importPath": "pytorch.learn1.002_mnist预测",
-        "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "model_name = \"pytorch/learn1/models/mnist.pkl\"\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size1, dtype=float),\n    tc.nn.ReLU(),\n    tc.nn.Linear(hidden_size1, hidden_size2, dtype=float),\n    tc.nn.ReLU(),\n    # tc.nn.Sigmoid(),\n    tc.nn.Linear(hidden_size2, output_size, dtype=float),\n)\ncost = tc.nn.CrossEntropyLoss()",
-        "detail": "pytorch.learn1.002_mnist预测",
+        "importPath": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "description": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "peekOfCode": "learn_rate = 0.01\nmodel = tc.nn.Linear(inputs.shape[-1], labels.shape[-1], dtype=tc.float64)\noptimizer = tc.optim.SGD(model.parameters(), lr=learn_rate)\ncriterion = tc.nn.MSELoss()\nfor i in range(epochs):\n    optimizer.zero_grad()\n    outputs = model(inputs)\n    loss = criterion(labels, outputs)\n    loss.backward()\n    optimizer.step()",
+        "detail": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
         "documentation": {}
     },
     {
         "label": "model",
         "kind": 5,
-        "importPath": "pytorch.learn1.002_mnist预测",
-        "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "model = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size1, dtype=float),\n    tc.nn.ReLU(),\n    tc.nn.Linear(hidden_size1, hidden_size2, dtype=float),\n    tc.nn.ReLU(),\n    # tc.nn.Sigmoid(),\n    tc.nn.Linear(hidden_size2, output_size, dtype=float),\n)\ncost = tc.nn.CrossEntropyLoss()\noptimizer = tc.optim.Adam(model.parameters(), lr=lr)",
-        "detail": "pytorch.learn1.002_mnist预测",
-        "documentation": {}
-    },
-    {
-        "label": "cost",
-        "kind": 5,
-        "importPath": "pytorch.learn1.002_mnist预测",
-        "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "cost = tc.nn.CrossEntropyLoss()\noptimizer = tc.optim.Adam(model.parameters(), lr=lr)\ndef train():\n    for i in range(epochs):\n        batch_loss = []\n        for start in range(0, data_size, batch_size):\n            optimizer.zero_grad()\n            end = start + batch_size if start + batch_size < data_size else data_size \n            x, y = X_train[start:end], y_train[start:end]\n            prediction = model(x)",
-        "detail": "pytorch.learn1.002_mnist预测",
+        "importPath": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "description": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "peekOfCode": "model = tc.nn.Linear(inputs.shape[-1], labels.shape[-1], dtype=tc.float64)\noptimizer = tc.optim.SGD(model.parameters(), lr=learn_rate)\ncriterion = tc.nn.MSELoss()\nfor i in range(epochs):\n    optimizer.zero_grad()\n    outputs = model(inputs)\n    loss = criterion(labels, outputs)\n    loss.backward()\n    optimizer.step()\n    if not i % 100:",
+        "detail": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
         "documentation": {}
     },
     {
         "label": "optimizer",
         "kind": 5,
-        "importPath": "pytorch.learn1.002_mnist预测",
-        "description": "pytorch.learn1.002_mnist预测",
-        "peekOfCode": "optimizer = tc.optim.Adam(model.parameters(), lr=lr)\ndef train():\n    for i in range(epochs):\n        batch_loss = []\n        for start in range(0, data_size, batch_size):\n            optimizer.zero_grad()\n            end = start + batch_size if start + batch_size < data_size else data_size \n            x, y = X_train[start:end], y_train[start:end]\n            prediction = model(x)\n            loss = cost(prediction, y)",
-        "detail": "pytorch.learn1.002_mnist预测",
+        "importPath": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "description": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "peekOfCode": "optimizer = tc.optim.SGD(model.parameters(), lr=learn_rate)\ncriterion = tc.nn.MSELoss()\nfor i in range(epochs):\n    optimizer.zero_grad()\n    outputs = model(inputs)\n    loss = criterion(labels, outputs)\n    loss.backward()\n    optimizer.step()\n    if not i % 100:\n        print(i, loss.item())",
+        "detail": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
         "documentation": {}
     },
     {
-        "label": "path",
+        "label": "criterion",
+        "kind": 5,
+        "importPath": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "description": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "peekOfCode": "criterion = tc.nn.MSELoss()\nfor i in range(epochs):\n    optimizer.zero_grad()\n    outputs = model(inputs)\n    loss = criterion(labels, outputs)\n    loss.backward()\n    optimizer.step()\n    if not i % 100:\n        print(i, loss.item())",
+        "detail": "pytorch.learn1.000_2x+1线性回归_01_linear_model",
+        "documentation": {}
+    },
+    {
+        "label": "features",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "peekOfCode": "features = pd.read_csv(\"pytorch/learn1/datas/temps.csv\")\n# 独热编码\nfeatures = pd.get_dummies(features)\nlabels = features[\"actual\"]\nfeatures = features.drop([\"actual\", \"friend\"], axis=1)\nfeatures = np.array(features, dtype=np.float64)\nfeatures = preprocessing.StandardScaler().fit_transform(features)\ninputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n#####################################################",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "documentation": {}
+    },
+    {
+        "label": "features",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "peekOfCode": "features = pd.get_dummies(features)\nlabels = features[\"actual\"]\nfeatures = features.drop([\"actual\", \"friend\"], axis=1)\nfeatures = np.array(features, dtype=np.float64)\nfeatures = preprocessing.StandardScaler().fit_transform(features)\ninputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n#####################################################\n#################### model ##########################\n#####################################################",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "documentation": {}
+    },
+    {
+        "label": "labels",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "peekOfCode": "labels = features[\"actual\"]\nfeatures = features.drop([\"actual\", \"friend\"], axis=1)\nfeatures = np.array(features, dtype=np.float64)\nfeatures = preprocessing.StandardScaler().fit_transform(features)\ninputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n#####################################################\n#################### model ##########################\n#####################################################\nhidden_size = 128",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "documentation": {}
+    },
+    {
+        "label": "features",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "peekOfCode": "features = features.drop([\"actual\", \"friend\"], axis=1)\nfeatures = np.array(features, dtype=np.float64)\nfeatures = preprocessing.StandardScaler().fit_transform(features)\ninputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n#####################################################\n#################### model ##########################\n#####################################################\nhidden_size = 128\nW1 = tc.rand((inputs.shape[-1], hidden_size), requires_grad=True, dtype=float)",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "documentation": {}
+    },
+    {
+        "label": "features",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "peekOfCode": "features = np.array(features, dtype=np.float64)\nfeatures = preprocessing.StandardScaler().fit_transform(features)\ninputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n#####################################################\n#################### model ##########################\n#####################################################\nhidden_size = 128\nW1 = tc.rand((inputs.shape[-1], hidden_size), requires_grad=True, dtype=float)\nB1 = tc.rand(hidden_size, requires_grad=True, dtype=float)",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "documentation": {}
+    },
+    {
+        "label": "features",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "peekOfCode": "features = preprocessing.StandardScaler().fit_transform(features)\ninputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n#####################################################\n#################### model ##########################\n#####################################################\nhidden_size = 128\nW1 = tc.rand((inputs.shape[-1], hidden_size), requires_grad=True, dtype=float)\nB1 = tc.rand(hidden_size, requires_grad=True, dtype=float)\nW2 = tc.rand(hidden_size, 1, requires_grad=True, dtype=float)",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "documentation": {}
+    },
+    {
+        "label": "inputs",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "peekOfCode": "inputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n#####################################################\n#################### model ##########################\n#####################################################\nhidden_size = 128\nW1 = tc.rand((inputs.shape[-1], hidden_size), requires_grad=True, dtype=float)\nB1 = tc.rand(hidden_size, requires_grad=True, dtype=float)\nW2 = tc.rand(hidden_size, 1, requires_grad=True, dtype=float)\nB2 = tc.rand(hidden_size, requires_grad=True, dtype=float)",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "documentation": {}
+    },
+    {
+        "label": "labels",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "peekOfCode": "labels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n#####################################################\n#################### model ##########################\n#####################################################\nhidden_size = 128\nW1 = tc.rand((inputs.shape[-1], hidden_size), requires_grad=True, dtype=float)\nB1 = tc.rand(hidden_size, requires_grad=True, dtype=float)\nW2 = tc.rand(hidden_size, 1, requires_grad=True, dtype=float)\nB2 = tc.rand(hidden_size, requires_grad=True, dtype=float)\nepochs = 10000",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "documentation": {}
+    },
+    {
+        "label": "hidden_size",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "peekOfCode": "hidden_size = 128\nW1 = tc.rand((inputs.shape[-1], hidden_size), requires_grad=True, dtype=float)\nB1 = tc.rand(hidden_size, requires_grad=True, dtype=float)\nW2 = tc.rand(hidden_size, 1, requires_grad=True, dtype=float)\nB2 = tc.rand(hidden_size, requires_grad=True, dtype=float)\nepochs = 10000\nlr = 0.001\nfor i in range(epochs):\n    outputs = inputs.mm(W1) + B1\n    outputs = tc.relu(outputs)",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "documentation": {}
+    },
+    {
+        "label": "W1",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "peekOfCode": "W1 = tc.rand((inputs.shape[-1], hidden_size), requires_grad=True, dtype=float)\nB1 = tc.rand(hidden_size, requires_grad=True, dtype=float)\nW2 = tc.rand(hidden_size, 1, requires_grad=True, dtype=float)\nB2 = tc.rand(hidden_size, requires_grad=True, dtype=float)\nepochs = 10000\nlr = 0.001\nfor i in range(epochs):\n    outputs = inputs.mm(W1) + B1\n    outputs = tc.relu(outputs)\n    predictions = outputs.mm(W2) + B2",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "documentation": {}
+    },
+    {
+        "label": "B1",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "peekOfCode": "B1 = tc.rand(hidden_size, requires_grad=True, dtype=float)\nW2 = tc.rand(hidden_size, 1, requires_grad=True, dtype=float)\nB2 = tc.rand(hidden_size, requires_grad=True, dtype=float)\nepochs = 10000\nlr = 0.001\nfor i in range(epochs):\n    outputs = inputs.mm(W1) + B1\n    outputs = tc.relu(outputs)\n    predictions = outputs.mm(W2) + B2\n    loss = tc.mean((predictions - labels) ** 2)",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "documentation": {}
+    },
+    {
+        "label": "W2",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "peekOfCode": "W2 = tc.rand(hidden_size, 1, requires_grad=True, dtype=float)\nB2 = tc.rand(hidden_size, requires_grad=True, dtype=float)\nepochs = 10000\nlr = 0.001\nfor i in range(epochs):\n    outputs = inputs.mm(W1) + B1\n    outputs = tc.relu(outputs)\n    predictions = outputs.mm(W2) + B2\n    loss = tc.mean((predictions - labels) ** 2)\n    loss.backward()",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "documentation": {}
+    },
+    {
+        "label": "B2",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "peekOfCode": "B2 = tc.rand(hidden_size, requires_grad=True, dtype=float)\nepochs = 10000\nlr = 0.001\nfor i in range(epochs):\n    outputs = inputs.mm(W1) + B1\n    outputs = tc.relu(outputs)\n    predictions = outputs.mm(W2) + B2\n    loss = tc.mean((predictions - labels) ** 2)\n    loss.backward()\n    if not i % 100:",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "documentation": {}
+    },
+    {
+        "label": "epochs",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "peekOfCode": "epochs = 10000\nlr = 0.001\nfor i in range(epochs):\n    outputs = inputs.mm(W1) + B1\n    outputs = tc.relu(outputs)\n    predictions = outputs.mm(W2) + B2\n    loss = tc.mean((predictions - labels) ** 2)\n    loss.backward()\n    if not i % 100:\n        print(i, loss)",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "documentation": {}
+    },
+    {
+        "label": "lr",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "peekOfCode": "lr = 0.001\nfor i in range(epochs):\n    outputs = inputs.mm(W1) + B1\n    outputs = tc.relu(outputs)\n    predictions = outputs.mm(W2) + B2\n    loss = tc.mean((predictions - labels) ** 2)\n    loss.backward()\n    if not i % 100:\n        print(i, loss)\n    W1.data.add_(-lr * W1.grad.data)",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_01_mm",
+        "documentation": {}
+    },
+    {
+        "label": "features",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "peekOfCode": "features = pd.read_csv(\"pytorch/learn1/datas/temps.csv\")\n# 独热编码\nfeatures = pd.get_dummies(features)\nlabels = features[\"actual\"]\nfeatures = features.drop([\"actual\", \"friend\"], axis=1)\nfeatures = np.array(features, dtype=np.float64)\nfeatures = preprocessing.StandardScaler().fit_transform(features)\ninputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n#####################################################",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "documentation": {}
+    },
+    {
+        "label": "features",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "peekOfCode": "features = pd.get_dummies(features)\nlabels = features[\"actual\"]\nfeatures = features.drop([\"actual\", \"friend\"], axis=1)\nfeatures = np.array(features, dtype=np.float64)\nfeatures = preprocessing.StandardScaler().fit_transform(features)\ninputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n#####################################################\n#################### model ##########################\n#####################################################",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "documentation": {}
+    },
+    {
+        "label": "labels",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "peekOfCode": "labels = features[\"actual\"]\nfeatures = features.drop([\"actual\", \"friend\"], axis=1)\nfeatures = np.array(features, dtype=np.float64)\nfeatures = preprocessing.StandardScaler().fit_transform(features)\ninputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n#####################################################\n#################### model ##########################\n#####################################################\nhidden_size = 128",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "documentation": {}
+    },
+    {
+        "label": "features",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "peekOfCode": "features = features.drop([\"actual\", \"friend\"], axis=1)\nfeatures = np.array(features, dtype=np.float64)\nfeatures = preprocessing.StandardScaler().fit_transform(features)\ninputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n#####################################################\n#################### model ##########################\n#####################################################\nhidden_size = 128\ndata_size = inputs.shape[0]",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "documentation": {}
+    },
+    {
+        "label": "features",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "peekOfCode": "features = np.array(features, dtype=np.float64)\nfeatures = preprocessing.StandardScaler().fit_transform(features)\ninputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n#####################################################\n#################### model ##########################\n#####################################################\nhidden_size = 128\ndata_size = inputs.shape[0]\ninput_size = inputs.shape[-1]",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "documentation": {}
+    },
+    {
+        "label": "features",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "peekOfCode": "features = preprocessing.StandardScaler().fit_transform(features)\ninputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n#####################################################\n#################### model ##########################\n#####################################################\nhidden_size = 128\ndata_size = inputs.shape[0]\ninput_size = inputs.shape[-1]\noutput_size = 1",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "documentation": {}
+    },
+    {
+        "label": "inputs",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "peekOfCode": "inputs = tc.tensor(features, dtype=float)\nlabels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n#####################################################\n#################### model ##########################\n#####################################################\nhidden_size = 128\ndata_size = inputs.shape[0]\ninput_size = inputs.shape[-1]\noutput_size = 1\nbatch_size = 16",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "documentation": {}
+    },
+    {
+        "label": "labels",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "peekOfCode": "labels = tc.tensor(np.array(labels).reshape(-1, 1), dtype=float)\n#####################################################\n#################### model ##########################\n#####################################################\nhidden_size = 128\ndata_size = inputs.shape[0]\ninput_size = inputs.shape[-1]\noutput_size = 1\nbatch_size = 16\nlr = 0.001",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "documentation": {}
+    },
+    {
+        "label": "hidden_size",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "peekOfCode": "hidden_size = 128\ndata_size = inputs.shape[0]\ninput_size = inputs.shape[-1]\noutput_size = 1\nbatch_size = 16\nlr = 0.001\nepochs = 1000\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size, dtype=float),\n    # tc.nn.ReLU(),",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "documentation": {}
+    },
+    {
+        "label": "data_size",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "peekOfCode": "data_size = inputs.shape[0]\ninput_size = inputs.shape[-1]\noutput_size = 1\nbatch_size = 16\nlr = 0.001\nepochs = 1000\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size, dtype=float),\n    # tc.nn.ReLU(),\n    tc.nn.Sigmoid(),",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "documentation": {}
+    },
+    {
+        "label": "input_size",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "peekOfCode": "input_size = inputs.shape[-1]\noutput_size = 1\nbatch_size = 16\nlr = 0.001\nepochs = 1000\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size, dtype=float),\n    # tc.nn.ReLU(),\n    tc.nn.Sigmoid(),\n    tc.nn.Linear(hidden_size, output_size, dtype=float),",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "documentation": {}
+    },
+    {
+        "label": "output_size",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "peekOfCode": "output_size = 1\nbatch_size = 16\nlr = 0.001\nepochs = 1000\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size, dtype=float),\n    # tc.nn.ReLU(),\n    tc.nn.Sigmoid(),\n    tc.nn.Linear(hidden_size, output_size, dtype=float),\n)",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "documentation": {}
+    },
+    {
+        "label": "batch_size",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "peekOfCode": "batch_size = 16\nlr = 0.001\nepochs = 1000\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size, dtype=float),\n    # tc.nn.ReLU(),\n    tc.nn.Sigmoid(),\n    tc.nn.Linear(hidden_size, output_size, dtype=float),\n)\ncost = tc.nn.MSELoss(reduction=\"mean\")",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "documentation": {}
+    },
+    {
+        "label": "lr",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "peekOfCode": "lr = 0.001\nepochs = 1000\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size, dtype=float),\n    # tc.nn.ReLU(),\n    tc.nn.Sigmoid(),\n    tc.nn.Linear(hidden_size, output_size, dtype=float),\n)\ncost = tc.nn.MSELoss(reduction=\"mean\")\noptimizer = tc.optim.Adam(model.parameters(), lr=lr)",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "documentation": {}
+    },
+    {
+        "label": "epochs",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "peekOfCode": "epochs = 1000\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size, dtype=float),\n    # tc.nn.ReLU(),\n    tc.nn.Sigmoid(),\n    tc.nn.Linear(hidden_size, output_size, dtype=float),\n)\ncost = tc.nn.MSELoss(reduction=\"mean\")\noptimizer = tc.optim.Adam(model.parameters(), lr=lr)\nfor i in range(epochs):",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "documentation": {}
+    },
+    {
+        "label": "model",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "peekOfCode": "model = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size, dtype=float),\n    # tc.nn.ReLU(),\n    tc.nn.Sigmoid(),\n    tc.nn.Linear(hidden_size, output_size, dtype=float),\n)\ncost = tc.nn.MSELoss(reduction=\"mean\")\noptimizer = tc.optim.Adam(model.parameters(), lr=lr)\nfor i in range(epochs):\n    batch_loss = []",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "documentation": {}
+    },
+    {
+        "label": "cost",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "peekOfCode": "cost = tc.nn.MSELoss(reduction=\"mean\")\noptimizer = tc.optim.Adam(model.parameters(), lr=lr)\nfor i in range(epochs):\n    batch_loss = []\n    for start in range(0, data_size, batch_size):\n        optimizer.zero_grad()\n        end = start + batch_size if start + batch_size < data_size else data_size\n        x, y = inputs[start:end], labels[start:end]\n        prediction = model(x)\n        loss = cost(prediction, y)",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "documentation": {}
+    },
+    {
+        "label": "optimizer",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "peekOfCode": "optimizer = tc.optim.Adam(model.parameters(), lr=lr)\nfor i in range(epochs):\n    batch_loss = []\n    for start in range(0, data_size, batch_size):\n        optimizer.zero_grad()\n        end = start + batch_size if start + batch_size < data_size else data_size\n        x, y = inputs[start:end], labels[start:end]\n        prediction = model(x)\n        loss = cost(prediction, y)\n        loss.backward()",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "documentation": {}
+    },
+    {
+        "label": "model_name",
+        "kind": 5,
+        "importPath": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "description": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "peekOfCode": "model_name = \"pytorch/learn1/models/搭建pytorch神经网络进行气温预测.pkl\"\ntc.save(model.state_dict(), model_name)\n# model.load_state_dict(tc.load(model_name,weights_only=0))",
+        "detail": "pytorch.learn1.001_搭建pytorch神经网络进行气温预测_02_Sequential",
+        "documentation": {}
+    },
+    {
+        "label": "train",
+        "kind": 2,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "def train():\n    for i in range(epochs):\n        batch_loss = []\n        for start in range(0, data_size, batch_size):\n            optimizer.zero_grad()\n            end = start + batch_size if start + batch_size < data_size else data_size\n            x, y = X_train[start:end], y_train[start:end]\n            prediction = model(x)\n            loss = cost(prediction, y)\n            loss.backward()",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "test",
+        "kind": 2,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "def test():\n    model.load_state_dict(tc.load(model_name, weights_only=0))\n    prediction = model(X_test).argmax(axis=1)\n    acc_rate = (prediction == y_test).sum() / y_test.size()[0]\n    print(acc_rate.item())\n    # print(model)\n    # for i,j in enumerate(model.named_parameters()):\n    #     print(i,j)\nif __name__ == \"__main__\":\n    train()",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "mnist",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "mnist = fetch_openml(\"mnist_784\", version=1, cache=True)\nmnist.target = mnist.target.astype(np.int8)\nX, y = mnist[\"data\"], mnist[\"target\"]\nX[:60000].to_numpy()\nX_train, X_test, y_train, y_test = map(\n    lambda df: df.to_numpy(), (X[:60000], X[60000:], y[:60000], y[60000:])\n)\n# 洗牌训练集\nnp.random.seed(666)\nshuffle_index = np.random.permutation(60000)",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "mnist.target",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "mnist.target = mnist.target.astype(np.int8)\nX, y = mnist[\"data\"], mnist[\"target\"]\nX[:60000].to_numpy()\nX_train, X_test, y_train, y_test = map(\n    lambda df: df.to_numpy(), (X[:60000], X[60000:], y[:60000], y[60000:])\n)\n# 洗牌训练集\nnp.random.seed(666)\nshuffle_index = np.random.permutation(60000)\nX_train, y_train = X_train[shuffle_index], y_train[shuffle_index]",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "shuffle_index",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "shuffle_index = np.random.permutation(60000)\nX_train, y_train = X_train[shuffle_index], y_train[shuffle_index]\nX_train = preprocessing.StandardScaler().fit_transform(X_train)\nX_test = preprocessing.StandardScaler().fit_transform(X_test)\n# y_train = pd.get_dummies(y_train)\n# y_test = pd.get_dummies(y_test)\nX_train, y_train, X_test, y_test = map(tc.tensor, (X_train, y_train, X_test, y_test))\nX_train, X_test = X_train.to(tc.float64), X_test.to(tc.float64)\ny_train, y_test = y_train.to(tc.long), y_test.to(tc.long)\ny_train = tc.nn.functional.one_hot(y_train, num_classes=10)",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "X_train",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "X_train = preprocessing.StandardScaler().fit_transform(X_train)\nX_test = preprocessing.StandardScaler().fit_transform(X_test)\n# y_train = pd.get_dummies(y_train)\n# y_test = pd.get_dummies(y_test)\nX_train, y_train, X_test, y_test = map(tc.tensor, (X_train, y_train, X_test, y_test))\nX_train, X_test = X_train.to(tc.float64), X_test.to(tc.float64)\ny_train, y_test = y_train.to(tc.long), y_test.to(tc.long)\ny_train = tc.nn.functional.one_hot(y_train, num_classes=10)\ny_train = y_train.to(tc.float64)\n#####################################################",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "X_test",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "X_test = preprocessing.StandardScaler().fit_transform(X_test)\n# y_train = pd.get_dummies(y_train)\n# y_test = pd.get_dummies(y_test)\nX_train, y_train, X_test, y_test = map(tc.tensor, (X_train, y_train, X_test, y_test))\nX_train, X_test = X_train.to(tc.float64), X_test.to(tc.float64)\ny_train, y_test = y_train.to(tc.long), y_test.to(tc.long)\ny_train = tc.nn.functional.one_hot(y_train, num_classes=10)\ny_train = y_train.to(tc.float64)\n#####################################################\n#################### model ##########################",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "y_train",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "y_train = tc.nn.functional.one_hot(y_train, num_classes=10)\ny_train = y_train.to(tc.float64)\n#####################################################\n#################### model ##########################\n#####################################################\nhidden_size1 = 128\nhidden_size2 = 70\ndata_size = X_train.shape[0]\ninput_size = X_train.shape[-1]\noutput_size = 10",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "y_train",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "y_train = y_train.to(tc.float64)\n#####################################################\n#################### model ##########################\n#####################################################\nhidden_size1 = 128\nhidden_size2 = 70\ndata_size = X_train.shape[0]\ninput_size = X_train.shape[-1]\noutput_size = 10\nbatch_size = 128",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "hidden_size1",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "hidden_size1 = 128\nhidden_size2 = 70\ndata_size = X_train.shape[0]\ninput_size = X_train.shape[-1]\noutput_size = 10\nbatch_size = 128\nlr = 0.001\nepochs = 200\nmodel_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\nmodel_name = \"pytorch/learn1/models/{}\".format(model_name)",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "hidden_size2",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "hidden_size2 = 70\ndata_size = X_train.shape[0]\ninput_size = X_train.shape[-1]\noutput_size = 10\nbatch_size = 128\nlr = 0.001\nepochs = 200\nmodel_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\nmodel_name = \"pytorch/learn1/models/{}\".format(model_name)\nmodel = tc.nn.Sequential(",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "data_size",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "data_size = X_train.shape[0]\ninput_size = X_train.shape[-1]\noutput_size = 10\nbatch_size = 128\nlr = 0.001\nepochs = 200\nmodel_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\nmodel_name = \"pytorch/learn1/models/{}\".format(model_name)\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size1, dtype=float),",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "input_size",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "input_size = X_train.shape[-1]\noutput_size = 10\nbatch_size = 128\nlr = 0.001\nepochs = 200\nmodel_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\nmodel_name = \"pytorch/learn1/models/{}\".format(model_name)\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size1, dtype=float),\n    tc.nn.ReLU(),",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "output_size",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "output_size = 10\nbatch_size = 128\nlr = 0.001\nepochs = 200\nmodel_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\nmodel_name = \"pytorch/learn1/models/{}\".format(model_name)\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size1, dtype=float),\n    tc.nn.ReLU(),\n    tc.nn.Linear(hidden_size1, hidden_size2, dtype=float),",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "batch_size",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "batch_size = 128\nlr = 0.001\nepochs = 200\nmodel_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\nmodel_name = \"pytorch/learn1/models/{}\".format(model_name)\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size1, dtype=float),\n    tc.nn.ReLU(),\n    tc.nn.Linear(hidden_size1, hidden_size2, dtype=float),\n    tc.nn.ReLU(),",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "lr",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "lr = 0.001\nepochs = 200\nmodel_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\nmodel_name = \"pytorch/learn1/models/{}\".format(model_name)\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size1, dtype=float),\n    tc.nn.ReLU(),\n    tc.nn.Linear(hidden_size1, hidden_size2, dtype=float),\n    tc.nn.ReLU(),\n    # tc.nn.Sigmoid(),",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "epochs",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "epochs = 200\nmodel_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\nmodel_name = \"pytorch/learn1/models/{}\".format(model_name)\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size1, dtype=float),\n    tc.nn.ReLU(),\n    tc.nn.Linear(hidden_size1, hidden_size2, dtype=float),\n    tc.nn.ReLU(),\n    # tc.nn.Sigmoid(),\n    tc.nn.Linear(hidden_size2, output_size, dtype=float),",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "model_name",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "model_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\nmodel_name = \"pytorch/learn1/models/{}\".format(model_name)\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size1, dtype=float),\n    tc.nn.ReLU(),\n    tc.nn.Linear(hidden_size1, hidden_size2, dtype=float),\n    tc.nn.ReLU(),\n    # tc.nn.Sigmoid(),\n    tc.nn.Linear(hidden_size2, output_size, dtype=float),\n)",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "model_name",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "model_name = \"pytorch/learn1/models/{}\".format(model_name)\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size1, dtype=float),\n    tc.nn.ReLU(),\n    tc.nn.Linear(hidden_size1, hidden_size2, dtype=float),\n    tc.nn.ReLU(),\n    # tc.nn.Sigmoid(),\n    tc.nn.Linear(hidden_size2, output_size, dtype=float),\n)\ncost = tc.nn.CrossEntropyLoss()",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "model",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "model = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size1, dtype=float),\n    tc.nn.ReLU(),\n    tc.nn.Linear(hidden_size1, hidden_size2, dtype=float),\n    tc.nn.ReLU(),\n    # tc.nn.Sigmoid(),\n    tc.nn.Linear(hidden_size2, output_size, dtype=float),\n)\ncost = tc.nn.CrossEntropyLoss()\noptimizer = tc.optim.Adam(model.parameters(), lr=lr)",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "cost",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "cost = tc.nn.CrossEntropyLoss()\noptimizer = tc.optim.Adam(model.parameters(), lr=lr)\ndef train():\n    for i in range(epochs):\n        batch_loss = []\n        for start in range(0, data_size, batch_size):\n            optimizer.zero_grad()\n            end = start + batch_size if start + batch_size < data_size else data_size\n            x, y = X_train[start:end], y_train[start:end]\n            prediction = model(x)",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "optimizer",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_01_FC",
+        "description": "pytorch.learn1.002_mnist预测_01_FC",
+        "peekOfCode": "optimizer = tc.optim.Adam(model.parameters(), lr=lr)\ndef train():\n    for i in range(epochs):\n        batch_loss = []\n        for start in range(0, data_size, batch_size):\n            optimizer.zero_grad()\n            end = start + batch_size if start + batch_size < data_size else data_size\n            x, y = X_train[start:end], y_train[start:end]\n            prediction = model(x)\n            loss = cost(prediction, y)",
+        "detail": "pytorch.learn1.002_mnist预测_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "train",
+        "kind": 2,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "def train():\n    for i in range(epochs):\n        batch_loss = []\n        for start in range(0, data_size, batch_size):\n            optimizer.zero_grad()\n            end = start + batch_size if start + batch_size < data_size else data_size\n            x, y = X_train[start:end], y_train[start:end]\n            prediction = model(x)\n            loss = cost(prediction, y)\n            loss.backward()",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "test",
+        "kind": 2,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "def test():\n    model.load_state_dict(tc.load(model_name, weights_only=0))\n    prediction = model(X_test).argmax(axis=1)\n    acc_rate = (prediction == y_test).sum() / y_test.size()[0]\n    print(acc_rate.item())\n    # print(model)\n    # for i,j in enumerate(model.named_parameters()):\n    #     print(i,j)\nif __name__ == \"__main__\":\n    # train()",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "mnist",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "mnist = fetch_openml(\"mnist_784\", version=1, cache=True)\nmnist.target = mnist.target.astype(np.int8)\nX, y = mnist[\"data\"], mnist[\"target\"]\nX[:60000].to_numpy()\nX_train, X_test, y_train, y_test = map(\n    lambda df: df.to_numpy(), (X[:60000], X[60000:], y[:60000], y[60000:])\n)\n# 洗牌训练集\nnp.random.seed(666)\nshuffle_index = np.random.permutation(60000)",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "mnist.target",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "mnist.target = mnist.target.astype(np.int8)\nX, y = mnist[\"data\"], mnist[\"target\"]\nX[:60000].to_numpy()\nX_train, X_test, y_train, y_test = map(\n    lambda df: df.to_numpy(), (X[:60000], X[60000:], y[:60000], y[60000:])\n)\n# 洗牌训练集\nnp.random.seed(666)\nshuffle_index = np.random.permutation(60000)\nX_train, y_train = X_train[shuffle_index], y_train[shuffle_index]",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "shuffle_index",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "shuffle_index = np.random.permutation(60000)\nX_train, y_train = X_train[shuffle_index], y_train[shuffle_index]\nX_train = preprocessing.StandardScaler().fit_transform(X_train)\nX_test = preprocessing.StandardScaler().fit_transform(X_test)\nX_train, y_train, X_test, y_test = map(tc.tensor, (X_train, y_train, X_test, y_test))\nX_train, X_test = X_train.to(tc.float64), X_test.to(tc.float64)\nX_train, X_test = X_train.reshape(-1, 1, 28, 28), X_test.reshape(-1, 1, 28, 28)\ny_train, y_test = y_train.to(tc.long), y_test.to(tc.long)\ny_train = tc.nn.functional.one_hot(y_train, num_classes=10)\ny_train = y_train.to(tc.float64)",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "X_train",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "X_train = preprocessing.StandardScaler().fit_transform(X_train)\nX_test = preprocessing.StandardScaler().fit_transform(X_test)\nX_train, y_train, X_test, y_test = map(tc.tensor, (X_train, y_train, X_test, y_test))\nX_train, X_test = X_train.to(tc.float64), X_test.to(tc.float64)\nX_train, X_test = X_train.reshape(-1, 1, 28, 28), X_test.reshape(-1, 1, 28, 28)\ny_train, y_test = y_train.to(tc.long), y_test.to(tc.long)\ny_train = tc.nn.functional.one_hot(y_train, num_classes=10)\ny_train = y_train.to(tc.float64)\n#####################################################\n#################### model ##########################",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "X_test",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "X_test = preprocessing.StandardScaler().fit_transform(X_test)\nX_train, y_train, X_test, y_test = map(tc.tensor, (X_train, y_train, X_test, y_test))\nX_train, X_test = X_train.to(tc.float64), X_test.to(tc.float64)\nX_train, X_test = X_train.reshape(-1, 1, 28, 28), X_test.reshape(-1, 1, 28, 28)\ny_train, y_test = y_train.to(tc.long), y_test.to(tc.long)\ny_train = tc.nn.functional.one_hot(y_train, num_classes=10)\ny_train = y_train.to(tc.float64)\n#####################################################\n#################### model ##########################\n#####################################################",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "y_train",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "y_train = tc.nn.functional.one_hot(y_train, num_classes=10)\ny_train = y_train.to(tc.float64)\n#####################################################\n#################### model ##########################\n#####################################################\ndata_size = X_train.shape[0]\noutput_size = 10\nbatch_size = 128\nlr = 0.001\nepochs = 30",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "y_train",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "y_train = y_train.to(tc.float64)\n#####################################################\n#################### model ##########################\n#####################################################\ndata_size = X_train.shape[0]\noutput_size = 10\nbatch_size = 128\nlr = 0.001\nepochs = 30\nout_channels1 = 16",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "data_size",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "data_size = X_train.shape[0]\noutput_size = 10\nbatch_size = 128\nlr = 0.001\nepochs = 30\nout_channels1 = 16\nout_channels2 = 32\nkernel_size = 5\nstride = 1\npadding = 2",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "output_size",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "output_size = 10\nbatch_size = 128\nlr = 0.001\nepochs = 30\nout_channels1 = 16\nout_channels2 = 32\nkernel_size = 5\nstride = 1\npadding = 2\nmodel_name = os.path.basename(__file__).replace(\".py\", \".pkl\")",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "batch_size",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "batch_size = 128\nlr = 0.001\nepochs = 30\nout_channels1 = 16\nout_channels2 = 32\nkernel_size = 5\nstride = 1\npadding = 2\nmodel_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\nmodel_name = \"pytorch/learn1/models/{}\".format(model_name)",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "lr",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "lr = 0.001\nepochs = 30\nout_channels1 = 16\nout_channels2 = 32\nkernel_size = 5\nstride = 1\npadding = 2\nmodel_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\nmodel_name = \"pytorch/learn1/models/{}\".format(model_name)\nmodel = tc.nn.Sequential(",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "epochs",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "epochs = 30\nout_channels1 = 16\nout_channels2 = 32\nkernel_size = 5\nstride = 1\npadding = 2\nmodel_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\nmodel_name = \"pytorch/learn1/models/{}\".format(model_name)\nmodel = tc.nn.Sequential(\n    tc.nn.Conv2d(  # in:1*28*28,out:16*28*28",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "out_channels1",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "out_channels1 = 16\nout_channels2 = 32\nkernel_size = 5\nstride = 1\npadding = 2\nmodel_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\nmodel_name = \"pytorch/learn1/models/{}\".format(model_name)\nmodel = tc.nn.Sequential(\n    tc.nn.Conv2d(  # in:1*28*28,out:16*28*28\n        in_channels=1,",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "out_channels2",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "out_channels2 = 32\nkernel_size = 5\nstride = 1\npadding = 2\nmodel_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\nmodel_name = \"pytorch/learn1/models/{}\".format(model_name)\nmodel = tc.nn.Sequential(\n    tc.nn.Conv2d(  # in:1*28*28,out:16*28*28\n        in_channels=1,\n        out_channels=out_channels1,",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "kernel_size",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "kernel_size = 5\nstride = 1\npadding = 2\nmodel_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\nmodel_name = \"pytorch/learn1/models/{}\".format(model_name)\nmodel = tc.nn.Sequential(\n    tc.nn.Conv2d(  # in:1*28*28,out:16*28*28\n        in_channels=1,\n        out_channels=out_channels1,\n        kernel_size=kernel_size,",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "stride",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "stride = 1\npadding = 2\nmodel_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\nmodel_name = \"pytorch/learn1/models/{}\".format(model_name)\nmodel = tc.nn.Sequential(\n    tc.nn.Conv2d(  # in:1*28*28,out:16*28*28\n        in_channels=1,\n        out_channels=out_channels1,\n        kernel_size=kernel_size,\n        stride=stride,",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "padding",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "padding = 2\nmodel_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\nmodel_name = \"pytorch/learn1/models/{}\".format(model_name)\nmodel = tc.nn.Sequential(\n    tc.nn.Conv2d(  # in:1*28*28,out:16*28*28\n        in_channels=1,\n        out_channels=out_channels1,\n        kernel_size=kernel_size,\n        stride=stride,\n        padding=padding,",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "model_name",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "model_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\nmodel_name = \"pytorch/learn1/models/{}\".format(model_name)\nmodel = tc.nn.Sequential(\n    tc.nn.Conv2d(  # in:1*28*28,out:16*28*28\n        in_channels=1,\n        out_channels=out_channels1,\n        kernel_size=kernel_size,\n        stride=stride,\n        padding=padding,\n        dtype=float,",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "model_name",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "model_name = \"pytorch/learn1/models/{}\".format(model_name)\nmodel = tc.nn.Sequential(\n    tc.nn.Conv2d(  # in:1*28*28,out:16*28*28\n        in_channels=1,\n        out_channels=out_channels1,\n        kernel_size=kernel_size,\n        stride=stride,\n        padding=padding,\n        dtype=float,\n    ),",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "model",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "model = tc.nn.Sequential(\n    tc.nn.Conv2d(  # in:1*28*28,out:16*28*28\n        in_channels=1,\n        out_channels=out_channels1,\n        kernel_size=kernel_size,\n        stride=stride,\n        padding=padding,\n        dtype=float,\n    ),\n    tc.nn.ReLU(),",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "cost",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "cost = tc.nn.CrossEntropyLoss()\noptimizer = tc.optim.Adam(model.parameters(), lr=lr)\ndef train():\n    for i in range(epochs):\n        batch_loss = []\n        for start in range(0, data_size, batch_size):\n            optimizer.zero_grad()\n            end = start + batch_size if start + batch_size < data_size else data_size\n            x, y = X_train[start:end], y_train[start:end]\n            prediction = model(x)",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "optimizer",
+        "kind": 5,
+        "importPath": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "description": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "peekOfCode": "optimizer = tc.optim.Adam(model.parameters(), lr=lr)\ndef train():\n    for i in range(epochs):\n        batch_loss = []\n        for start in range(0, data_size, batch_size):\n            optimizer.zero_grad()\n            end = start + batch_size if start + batch_size < data_size else data_size\n            x, y = X_train[start:end], y_train[start:end]\n            prediction = model(x)\n            loss = cost(prediction, y)",
+        "detail": "pytorch.learn1.002_mnist预测_02_ConvFC",
+        "documentation": {}
+    },
+    {
+        "label": "model_name",
         "kind": 5,
         "importPath": "pytorch.learn1.test_model",
         "description": "pytorch.learn1.test_model",
-        "peekOfCode": "path = \"pytorch/learn1/models/\"\nmodel_name = path+\"mnist.pkl\"\n#####################################################\n#################### data ##########################\n#####################################################\nmnist = fetch_openml(\"mnist_784\", version=1, cache=True)\nmnist.target = mnist.target.astype(np.int8)\nX, y = mnist[\"data\"], mnist[\"target\"]\nX_train, X_test, y_train, y_test = map(\n    lambda df: df.to_numpy(), (X[:60000], X[60000:], y[:60000], y[60000:])",
+        "peekOfCode": "model_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\nmodel_name = \"pytorch/learn1/models/{}\".format(model_name)\nprint(model_name)",
         "detail": "pytorch.learn1.test_model",
         "documentation": {}
     },
@@ -267,142 +994,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.test_model",
         "description": "pytorch.learn1.test_model",
-        "peekOfCode": "model_name = path+\"mnist.pkl\"\n#####################################################\n#################### data ##########################\n#####################################################\nmnist = fetch_openml(\"mnist_784\", version=1, cache=True)\nmnist.target = mnist.target.astype(np.int8)\nX, y = mnist[\"data\"], mnist[\"target\"]\nX_train, X_test, y_train, y_test = map(\n    lambda df: df.to_numpy(), (X[:60000], X[60000:], y[:60000], y[60000:])\n)",
-        "detail": "pytorch.learn1.test_model",
-        "documentation": {}
-    },
-    {
-        "label": "mnist",
-        "kind": 5,
-        "importPath": "pytorch.learn1.test_model",
-        "description": "pytorch.learn1.test_model",
-        "peekOfCode": "mnist = fetch_openml(\"mnist_784\", version=1, cache=True)\nmnist.target = mnist.target.astype(np.int8)\nX, y = mnist[\"data\"], mnist[\"target\"]\nX_train, X_test, y_train, y_test = map(\n    lambda df: df.to_numpy(), (X[:60000], X[60000:], y[:60000], y[60000:])\n)\nX_test = preprocessing.StandardScaler().fit_transform(X_test)\nX_test, y_test = map(tc.tensor, (X_test, y_test))\nX_test = X_test.to(tc.float64)\ny_test = y_test.to(tc.long)",
-        "detail": "pytorch.learn1.test_model",
-        "documentation": {}
-    },
-    {
-        "label": "mnist.target",
-        "kind": 5,
-        "importPath": "pytorch.learn1.test_model",
-        "description": "pytorch.learn1.test_model",
-        "peekOfCode": "mnist.target = mnist.target.astype(np.int8)\nX, y = mnist[\"data\"], mnist[\"target\"]\nX_train, X_test, y_train, y_test = map(\n    lambda df: df.to_numpy(), (X[:60000], X[60000:], y[:60000], y[60000:])\n)\nX_test = preprocessing.StandardScaler().fit_transform(X_test)\nX_test, y_test = map(tc.tensor, (X_test, y_test))\nX_test = X_test.to(tc.float64)\ny_test = y_test.to(tc.long)\n#####################################################",
-        "detail": "pytorch.learn1.test_model",
-        "documentation": {}
-    },
-    {
-        "label": "X_test",
-        "kind": 5,
-        "importPath": "pytorch.learn1.test_model",
-        "description": "pytorch.learn1.test_model",
-        "peekOfCode": "X_test = preprocessing.StandardScaler().fit_transform(X_test)\nX_test, y_test = map(tc.tensor, (X_test, y_test))\nX_test = X_test.to(tc.float64)\ny_test = y_test.to(tc.long)\n#####################################################\n#################### model ##########################\n#####################################################\nhidden_size = 128\ndata_size = 60000\ninput_size = 784",
-        "detail": "pytorch.learn1.test_model",
-        "documentation": {}
-    },
-    {
-        "label": "X_test",
-        "kind": 5,
-        "importPath": "pytorch.learn1.test_model",
-        "description": "pytorch.learn1.test_model",
-        "peekOfCode": "X_test = X_test.to(tc.float64)\ny_test = y_test.to(tc.long)\n#####################################################\n#################### model ##########################\n#####################################################\nhidden_size = 128\ndata_size = 60000\ninput_size = 784\noutput_size = 10\nbatch_size = 128",
-        "detail": "pytorch.learn1.test_model",
-        "documentation": {}
-    },
-    {
-        "label": "y_test",
-        "kind": 5,
-        "importPath": "pytorch.learn1.test_model",
-        "description": "pytorch.learn1.test_model",
-        "peekOfCode": "y_test = y_test.to(tc.long)\n#####################################################\n#################### model ##########################\n#####################################################\nhidden_size = 128\ndata_size = 60000\ninput_size = 784\noutput_size = 10\nbatch_size = 128\nlr = 0.001",
-        "detail": "pytorch.learn1.test_model",
-        "documentation": {}
-    },
-    {
-        "label": "hidden_size",
-        "kind": 5,
-        "importPath": "pytorch.learn1.test_model",
-        "description": "pytorch.learn1.test_model",
-        "peekOfCode": "hidden_size = 128\ndata_size = 60000\ninput_size = 784\noutput_size = 10\nbatch_size = 128\nlr = 0.001\nepochs = 100\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size, dtype=float),\n    tc.nn.ReLU(),",
-        "detail": "pytorch.learn1.test_model",
-        "documentation": {}
-    },
-    {
-        "label": "data_size",
-        "kind": 5,
-        "importPath": "pytorch.learn1.test_model",
-        "description": "pytorch.learn1.test_model",
-        "peekOfCode": "data_size = 60000\ninput_size = 784\noutput_size = 10\nbatch_size = 128\nlr = 0.001\nepochs = 100\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size, dtype=float),\n    tc.nn.ReLU(),\n    # tc.nn.Sigmoid(),",
-        "detail": "pytorch.learn1.test_model",
-        "documentation": {}
-    },
-    {
-        "label": "input_size",
-        "kind": 5,
-        "importPath": "pytorch.learn1.test_model",
-        "description": "pytorch.learn1.test_model",
-        "peekOfCode": "input_size = 784\noutput_size = 10\nbatch_size = 128\nlr = 0.001\nepochs = 100\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size, dtype=float),\n    tc.nn.ReLU(),\n    # tc.nn.Sigmoid(),\n    tc.nn.Linear(hidden_size, output_size, dtype=float),",
-        "detail": "pytorch.learn1.test_model",
-        "documentation": {}
-    },
-    {
-        "label": "output_size",
-        "kind": 5,
-        "importPath": "pytorch.learn1.test_model",
-        "description": "pytorch.learn1.test_model",
-        "peekOfCode": "output_size = 10\nbatch_size = 128\nlr = 0.001\nepochs = 100\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size, dtype=float),\n    tc.nn.ReLU(),\n    # tc.nn.Sigmoid(),\n    tc.nn.Linear(hidden_size, output_size, dtype=float),\n)",
-        "detail": "pytorch.learn1.test_model",
-        "documentation": {}
-    },
-    {
-        "label": "batch_size",
-        "kind": 5,
-        "importPath": "pytorch.learn1.test_model",
-        "description": "pytorch.learn1.test_model",
-        "peekOfCode": "batch_size = 128\nlr = 0.001\nepochs = 100\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size, dtype=float),\n    tc.nn.ReLU(),\n    # tc.nn.Sigmoid(),\n    tc.nn.Linear(hidden_size, output_size, dtype=float),\n)\nmodel.load_state_dict(tc.load(model_name, weights_only=0))",
-        "detail": "pytorch.learn1.test_model",
-        "documentation": {}
-    },
-    {
-        "label": "lr",
-        "kind": 5,
-        "importPath": "pytorch.learn1.test_model",
-        "description": "pytorch.learn1.test_model",
-        "peekOfCode": "lr = 0.001\nepochs = 100\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size, dtype=float),\n    tc.nn.ReLU(),\n    # tc.nn.Sigmoid(),\n    tc.nn.Linear(hidden_size, output_size, dtype=float),\n)\nmodel.load_state_dict(tc.load(model_name, weights_only=0))\nprediction = model(X_test).argmax(axis=1)",
-        "detail": "pytorch.learn1.test_model",
-        "documentation": {}
-    },
-    {
-        "label": "epochs",
-        "kind": 5,
-        "importPath": "pytorch.learn1.test_model",
-        "description": "pytorch.learn1.test_model",
-        "peekOfCode": "epochs = 100\nmodel = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size, dtype=float),\n    tc.nn.ReLU(),\n    # tc.nn.Sigmoid(),\n    tc.nn.Linear(hidden_size, output_size, dtype=float),\n)\nmodel.load_state_dict(tc.load(model_name, weights_only=0))\nprediction = model(X_test).argmax(axis=1)\nacc_rate = (prediction == y_test).sum() / y_test.size()[0]",
-        "detail": "pytorch.learn1.test_model",
-        "documentation": {}
-    },
-    {
-        "label": "model",
-        "kind": 5,
-        "importPath": "pytorch.learn1.test_model",
-        "description": "pytorch.learn1.test_model",
-        "peekOfCode": "model = tc.nn.Sequential(\n    tc.nn.Linear(input_size, hidden_size, dtype=float),\n    tc.nn.ReLU(),\n    # tc.nn.Sigmoid(),\n    tc.nn.Linear(hidden_size, output_size, dtype=float),\n)\nmodel.load_state_dict(tc.load(model_name, weights_only=0))\nprediction = model(X_test).argmax(axis=1)\nacc_rate = (prediction == y_test).sum() / y_test.size()[0]\nprint(acc_rate.item())",
-        "detail": "pytorch.learn1.test_model",
-        "documentation": {}
-    },
-    {
-        "label": "prediction",
-        "kind": 5,
-        "importPath": "pytorch.learn1.test_model",
-        "description": "pytorch.learn1.test_model",
-        "peekOfCode": "prediction = model(X_test).argmax(axis=1)\nacc_rate = (prediction == y_test).sum() / y_test.size()[0]\nprint(acc_rate.item())",
-        "detail": "pytorch.learn1.test_model",
-        "documentation": {}
-    },
-    {
-        "label": "acc_rate",
-        "kind": 5,
-        "importPath": "pytorch.learn1.test_model",
-        "description": "pytorch.learn1.test_model",
-        "peekOfCode": "acc_rate = (prediction == y_test).sum() / y_test.size()[0]\nprint(acc_rate.item())",
+        "peekOfCode": "model_name = \"pytorch/learn1/models/{}\".format(model_name)\nprint(model_name)",
         "detail": "pytorch.learn1.test_model",
         "documentation": {}
     }
