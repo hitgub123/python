@@ -56,16 +56,16 @@ model.classifier = tc.nn.Sequential(tc.nn.Flatten(), tc.nn.Linear(13 * 13 * 512,
 if os.path.exists(model_name):
     model.classifier.load_state_dict(tc.load(model_name))
 cost = tc.nn.CrossEntropyLoss()
-optimizer = tc.optim.Adam(model.classifier.parameters(), lr=0.01)
+optimizer = tc.optim.Adam(model.classifier.parameters(), lr=0.001)
 
 data_size = X_train.shape[0]
-batch_size = 128
+batch_size = 32
 
 print(model)
 
 
 def train():
-    max_rate = 0.92
+    max_rate = 0.9425
     # max_rate = 0
     for i in range(100):
         batch_loss = []
@@ -89,6 +89,7 @@ def train():
 
     # tc.save(model.state_dict(), model_name)
     # tc.save(model.classifier.state_dict(), model_name)
+    # tc.save({'max_rate':max_rate,'W':model.state_dict()}, model_name)
 
 
 #####################################################
@@ -97,7 +98,7 @@ def train():
 def test():
     # model.load_state_dict(tc.load(model_name, weights_only=0))
     # if os.path.exists(model_name):
-        # model.classifier.load_state_dict(torch.load(model_name))
+    # model.classifier.load_state_dict(torch.load(model_name))
     acc_count = 0
     epoch = 2
     batch_size = 1000
