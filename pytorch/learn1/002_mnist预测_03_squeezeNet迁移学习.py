@@ -78,6 +78,7 @@ def train():
         model_params = tc.load(model_name)
         model.classifier.load_state_dict(model_params["W"])
         max_rate = model_params["max_rate"]
+    print("max_rate before train : ", max_rate)
     for i in range(train_epoch):
         model.train()
         batch_loss = []

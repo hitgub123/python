@@ -1,3 +1,5 @@
 .vscode/**
 runs/**
 # .gitignore
+data/**
+pytorch/learn1/__pycache__/**

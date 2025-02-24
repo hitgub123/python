@@ -121,11 +121,71 @@
         "documentation": {}
     },
     {
+        "label": "datasets",
+        "importPath": "torchvision",
+        "description": "torchvision",
+        "isExtraImport": true,
+        "detail": "torchvision",
+        "documentation": {}
+    },
+    {
+        "label": "transforms",
+        "importPath": "torchvision",
+        "description": "torchvision",
+        "isExtraImport": true,
+        "detail": "torchvision",
+        "documentation": {}
+    },
+    {
         "label": "SummaryWriter",
         "importPath": "torch.utils.tensorboard",
         "description": "torch.utils.tensorboard",
         "isExtraImport": true,
         "detail": "torch.utils.tensorboard",
+        "documentation": {}
+    },
+    {
+        "label": "torch,",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "torch.",
+        "description": "torch.",
+        "detail": "torch.",
+        "documentation": {}
+    },
+    {
+        "label": "torch.nn",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "torch.nn",
+        "description": "torch.nn",
+        "detail": "torch.nn",
+        "documentation": {}
+    },
+    {
+        "label": "torch.optim",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "torch.optim",
+        "description": "torch.optim",
+        "detail": "torch.optim",
+        "documentation": {}
+    },
+    {
+        "label": "DataLoader",
+        "importPath": "torch.utils.data",
+        "description": "torch.utils.data",
+        "isExtraImport": true,
+        "detail": "torch.utils.data",
+        "documentation": {}
+    },
+    {
+        "label": "matplotlib.pyplot",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "matplotlib.pyplot",
+        "description": "matplotlib.pyplot",
+        "detail": "matplotlib.pyplot",
         "documentation": {}
     },
     {
@@ -1042,7 +1102,7 @@
         "kind": 2,
         "importPath": "pytorch.learn1.002_mnist预测_03_squeezeNet迁移学习",
         "description": "pytorch.learn1.002_mnist预测_03_squeezeNet迁移学习",
-        "peekOfCode": "def train():\n    max_rate = 0\n    writer = SummaryWriter()\n    if os.path.exists(model_name):\n        model_params = tc.load(model_name)\n        model.classifier.load_state_dict(model_params[\"W\"])\n        max_rate = model_params[\"max_rate\"]\n    for i in range(train_epoch):\n        model.train()\n        batch_loss = []",
+        "peekOfCode": "def train():\n    max_rate = 0\n    writer = SummaryWriter()\n    if os.path.exists(model_name):\n        model_params = tc.load(model_name)\n        model.classifier.load_state_dict(model_params[\"W\"])\n        max_rate = model_params[\"max_rate\"]\n    print(\"max_rate before train : \", max_rate)\n    for i in range(train_epoch):\n        model.train()",
         "detail": "pytorch.learn1.002_mnist预测_03_squeezeNet迁移学习",
         "documentation": {}
     },
@@ -1222,8 +1282,206 @@
         "kind": 5,
         "importPath": "pytorch.learn1.002_mnist预测_03_squeezeNet迁移学习",
         "description": "pytorch.learn1.002_mnist预测_03_squeezeNet迁移学习",
-        "peekOfCode": "batch_size = 32\n# print(model)\ndef train():\n    max_rate = 0\n    writer = SummaryWriter()\n    if os.path.exists(model_name):\n        model_params = tc.load(model_name)\n        model.classifier.load_state_dict(model_params[\"W\"])\n        max_rate = model_params[\"max_rate\"]\n    for i in range(train_epoch):",
+        "peekOfCode": "batch_size = 32\n# print(model)\ndef train():\n    max_rate = 0\n    writer = SummaryWriter()\n    if os.path.exists(model_name):\n        model_params = tc.load(model_name)\n        model.classifier.load_state_dict(model_params[\"W\"])\n        max_rate = model_params[\"max_rate\"]\n    print(\"max_rate before train : \", max_rate)",
         "detail": "pytorch.learn1.002_mnist预测_03_squeezeNet迁移学习",
+        "documentation": {}
+    },
+    {
+        "label": "Generator",
+        "kind": 6,
+        "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "description": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "peekOfCode": "class Generator(nn.Module):\n    def __init__(self):\n        super(Generator, self).__init__()\n        self.model = nn.Sequential(\n            nn.Linear(latent_dim, hidden_dim),\n            nn.ReLU(),\n            nn.Linear(hidden_dim, hidden_dim),\n            nn.ReLU(),\n            nn.Linear(hidden_dim, image_dim),\n            nn.Tanh(),  # 输出范围 [-1, 1]，匹配归一化后的图像",
+        "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "Discriminator",
+        "kind": 6,
+        "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "description": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "peekOfCode": "class Discriminator(nn.Module):\n    def __init__(self):\n        super(Discriminator, self).__init__()\n        self.model = nn.Sequential(\n            nn.Linear(image_dim, hidden_dim),\n            nn.LeakyReLU(0.2),\n            nn.Linear(hidden_dim, hidden_dim),\n            nn.LeakyReLU(0.2),\n            nn.Linear(hidden_dim, 1),\n            nn.Sigmoid(),  # 输出概率 [0, 1]",
+        "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "train_gan",
+        "kind": 2,
+        "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "description": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "peekOfCode": "def train_gan():\n    model_name_g = model_util.get_model_name(\"g\")\n    V_g = model_util.load_model(generator, model_name_g)\n    V_g = sys.maxsize if V_g == 0 else V_g\n    model_name_d = model_util.get_model_name(\"d\")\n    V_d = model_util.load_model(discriminator, model_name_d)\n    V_d = sys.maxsize if V_d == 0 else V_d\n    for epoch in range(epochs):\n        g_loss_sum, d_loss_sum = 0, 0\n        for i, (real_imgs, _) in enumerate(dataloader):",
+        "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "show_images",
+        "kind": 2,
+        "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "description": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "peekOfCode": "def show_images(images, epoch):\n    fig, axes = plt.subplots(4, 4, figsize=(4, 4))\n    images = images * 0.5 + 0.5  # 反归一化到 [0, 1]\n    for i, ax in enumerate(axes.flat):\n        ax.imshow(images[i].squeeze(), cmap=\"gray\")\n        ax.axis(\"off\")\n    plt.suptitle(f\"Epoch {epoch}\")\n    plt.savefig(f\"gan_output_epoch_{epoch}.png\")\n    plt.close()\n# 开始训练",
+        "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "latent_dim",
+        "kind": 5,
+        "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "description": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "peekOfCode": "latent_dim = 100  # 噪声向量的维度\nhidden_dim = 256  # 隐藏层维度\nimage_dim = 28 * 28  # MNIST 图像展平后的大小 (784)\nbatch_size = 64  # 批量大小\nepochs = 50  # 训练轮数\nlr = 0.0002 / 2  # 学习率\ndevice = torch.device(\"cpu\")  # 用 CPU\n# 数据加载和预处理\ntransform = transforms.Compose(\n    [transforms.ToTensor(), transforms.Normalize([0.5], [0.5])]  # 归一化到 [-1, 1]",
+        "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "hidden_dim",
+        "kind": 5,
+        "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "description": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "peekOfCode": "hidden_dim = 256  # 隐藏层维度\nimage_dim = 28 * 28  # MNIST 图像展平后的大小 (784)\nbatch_size = 64  # 批量大小\nepochs = 50  # 训练轮数\nlr = 0.0002 / 2  # 学习率\ndevice = torch.device(\"cpu\")  # 用 CPU\n# 数据加载和预处理\ntransform = transforms.Compose(\n    [transforms.ToTensor(), transforms.Normalize([0.5], [0.5])]  # 归一化到 [-1, 1]\n)",
+        "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "image_dim",
+        "kind": 5,
+        "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "description": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "peekOfCode": "image_dim = 28 * 28  # MNIST 图像展平后的大小 (784)\nbatch_size = 64  # 批量大小\nepochs = 50  # 训练轮数\nlr = 0.0002 / 2  # 学习率\ndevice = torch.device(\"cpu\")  # 用 CPU\n# 数据加载和预处理\ntransform = transforms.Compose(\n    [transforms.ToTensor(), transforms.Normalize([0.5], [0.5])]  # 归一化到 [-1, 1]\n)\nmnist = datasets.MNIST(root=\"./data\", train=True, transform=transform, download=True)",
+        "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "batch_size",
+        "kind": 5,
+        "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "description": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "peekOfCode": "batch_size = 64  # 批量大小\nepochs = 50  # 训练轮数\nlr = 0.0002 / 2  # 学习率\ndevice = torch.device(\"cpu\")  # 用 CPU\n# 数据加载和预处理\ntransform = transforms.Compose(\n    [transforms.ToTensor(), transforms.Normalize([0.5], [0.5])]  # 归一化到 [-1, 1]\n)\nmnist = datasets.MNIST(root=\"./data\", train=True, transform=transform, download=True)\ndataloader = DataLoader(mnist, batch_size=batch_size, shuffle=True)",
+        "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "epochs",
+        "kind": 5,
+        "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "description": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "peekOfCode": "epochs = 50  # 训练轮数\nlr = 0.0002 / 2  # 学习率\ndevice = torch.device(\"cpu\")  # 用 CPU\n# 数据加载和预处理\ntransform = transforms.Compose(\n    [transforms.ToTensor(), transforms.Normalize([0.5], [0.5])]  # 归一化到 [-1, 1]\n)\nmnist = datasets.MNIST(root=\"./data\", train=True, transform=transform, download=True)\ndataloader = DataLoader(mnist, batch_size=batch_size, shuffle=True)\n# 生成器网络",
+        "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "lr",
+        "kind": 5,
+        "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "description": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "peekOfCode": "lr = 0.0002 / 2  # 学习率\ndevice = torch.device(\"cpu\")  # 用 CPU\n# 数据加载和预处理\ntransform = transforms.Compose(\n    [transforms.ToTensor(), transforms.Normalize([0.5], [0.5])]  # 归一化到 [-1, 1]\n)\nmnist = datasets.MNIST(root=\"./data\", train=True, transform=transform, download=True)\ndataloader = DataLoader(mnist, batch_size=batch_size, shuffle=True)\n# 生成器网络\nclass Generator(nn.Module):",
+        "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "device",
+        "kind": 5,
+        "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "description": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "peekOfCode": "device = torch.device(\"cpu\")  # 用 CPU\n# 数据加载和预处理\ntransform = transforms.Compose(\n    [transforms.ToTensor(), transforms.Normalize([0.5], [0.5])]  # 归一化到 [-1, 1]\n)\nmnist = datasets.MNIST(root=\"./data\", train=True, transform=transform, download=True)\ndataloader = DataLoader(mnist, batch_size=batch_size, shuffle=True)\n# 生成器网络\nclass Generator(nn.Module):\n    def __init__(self):",
+        "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "transform",
+        "kind": 5,
+        "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "description": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "peekOfCode": "transform = transforms.Compose(\n    [transforms.ToTensor(), transforms.Normalize([0.5], [0.5])]  # 归一化到 [-1, 1]\n)\nmnist = datasets.MNIST(root=\"./data\", train=True, transform=transform, download=True)\ndataloader = DataLoader(mnist, batch_size=batch_size, shuffle=True)\n# 生成器网络\nclass Generator(nn.Module):\n    def __init__(self):\n        super(Generator, self).__init__()\n        self.model = nn.Sequential(",
+        "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "mnist",
+        "kind": 5,
+        "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "description": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "peekOfCode": "mnist = datasets.MNIST(root=\"./data\", train=True, transform=transform, download=True)\ndataloader = DataLoader(mnist, batch_size=batch_size, shuffle=True)\n# 生成器网络\nclass Generator(nn.Module):\n    def __init__(self):\n        super(Generator, self).__init__()\n        self.model = nn.Sequential(\n            nn.Linear(latent_dim, hidden_dim),\n            nn.ReLU(),\n            nn.Linear(hidden_dim, hidden_dim),",
+        "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "dataloader",
+        "kind": 5,
+        "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "description": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "peekOfCode": "dataloader = DataLoader(mnist, batch_size=batch_size, shuffle=True)\n# 生成器网络\nclass Generator(nn.Module):\n    def __init__(self):\n        super(Generator, self).__init__()\n        self.model = nn.Sequential(\n            nn.Linear(latent_dim, hidden_dim),\n            nn.ReLU(),\n            nn.Linear(hidden_dim, hidden_dim),\n            nn.ReLU(),",
+        "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "generator",
+        "kind": 5,
+        "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "description": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "peekOfCode": "generator = Generator().to(device)\ndiscriminator = Discriminator().to(device)\ng_optimizer = optim.Adam(generator.parameters(), lr=lr)\nd_optimizer = optim.Adam(discriminator.parameters(), lr=lr)\ncriterion = nn.BCELoss()  # 二元交叉熵损失\n# 训练函数\ndef train_gan():\n    model_name_g = model_util.get_model_name(\"g\")\n    V_g = model_util.load_model(generator, model_name_g)\n    V_g = sys.maxsize if V_g == 0 else V_g",
+        "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "discriminator",
+        "kind": 5,
+        "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "description": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "peekOfCode": "discriminator = Discriminator().to(device)\ng_optimizer = optim.Adam(generator.parameters(), lr=lr)\nd_optimizer = optim.Adam(discriminator.parameters(), lr=lr)\ncriterion = nn.BCELoss()  # 二元交叉熵损失\n# 训练函数\ndef train_gan():\n    model_name_g = model_util.get_model_name(\"g\")\n    V_g = model_util.load_model(generator, model_name_g)\n    V_g = sys.maxsize if V_g == 0 else V_g\n    model_name_d = model_util.get_model_name(\"d\")",
+        "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "g_optimizer",
+        "kind": 5,
+        "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "description": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "peekOfCode": "g_optimizer = optim.Adam(generator.parameters(), lr=lr)\nd_optimizer = optim.Adam(discriminator.parameters(), lr=lr)\ncriterion = nn.BCELoss()  # 二元交叉熵损失\n# 训练函数\ndef train_gan():\n    model_name_g = model_util.get_model_name(\"g\")\n    V_g = model_util.load_model(generator, model_name_g)\n    V_g = sys.maxsize if V_g == 0 else V_g\n    model_name_d = model_util.get_model_name(\"d\")\n    V_d = model_util.load_model(discriminator, model_name_d)",
+        "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "d_optimizer",
+        "kind": 5,
+        "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "description": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "peekOfCode": "d_optimizer = optim.Adam(discriminator.parameters(), lr=lr)\ncriterion = nn.BCELoss()  # 二元交叉熵损失\n# 训练函数\ndef train_gan():\n    model_name_g = model_util.get_model_name(\"g\")\n    V_g = model_util.load_model(generator, model_name_g)\n    V_g = sys.maxsize if V_g == 0 else V_g\n    model_name_d = model_util.get_model_name(\"d\")\n    V_d = model_util.load_model(discriminator, model_name_d)\n    V_d = sys.maxsize if V_d == 0 else V_d",
+        "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "criterion",
+        "kind": 5,
+        "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "description": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "peekOfCode": "criterion = nn.BCELoss()  # 二元交叉熵损失\n# 训练函数\ndef train_gan():\n    model_name_g = model_util.get_model_name(\"g\")\n    V_g = model_util.load_model(generator, model_name_g)\n    V_g = sys.maxsize if V_g == 0 else V_g\n    model_name_d = model_util.get_model_name(\"d\")\n    V_d = model_util.load_model(discriminator, model_name_d)\n    V_d = sys.maxsize if V_d == 0 else V_d\n    for epoch in range(epochs):",
+        "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
+        "documentation": {}
+    },
+    {
+        "label": "get_model_name",
+        "kind": 2,
+        "importPath": "pytorch.learn1.model_util",
+        "description": "pytorch.learn1.model_util",
+        "peekOfCode": "def get_model_name(suffix):\n    if suffix:\n        model_name = os.path.basename(__file__).replace(\".py\", \"_{}.pkl\".format(suffix))\n    else:\n        model_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\n    model_name = \"pytorch/learn1/models/{}\".format(model_name)\n    return model_name\ndef save_model(model, model_name, max_rate):\n    torch.save({\"V\": max_rate, \"W\": model.state_dict()}, model_name)\ndef load_model(model, model_name):",
+        "detail": "pytorch.learn1.model_util",
+        "documentation": {}
+    },
+    {
+        "label": "save_model",
+        "kind": 2,
+        "importPath": "pytorch.learn1.model_util",
+        "description": "pytorch.learn1.model_util",
+        "peekOfCode": "def save_model(model, model_name, max_rate):\n    torch.save({\"V\": max_rate, \"W\": model.state_dict()}, model_name)\ndef load_model(model, model_name):\n    V = 0\n    if os.path.exists(model_name):\n        model_params = torch.load(model_name)\n        model.load_state_dict(model_params[\"W\"])\n        V = model_params[\"V\"]\n    return V",
+        "detail": "pytorch.learn1.model_util",
+        "documentation": {}
+    },
+    {
+        "label": "load_model",
+        "kind": 2,
+        "importPath": "pytorch.learn1.model_util",
+        "description": "pytorch.learn1.model_util",
+        "peekOfCode": "def load_model(model, model_name):\n    V = 0\n    if os.path.exists(model_name):\n        model_params = torch.load(model_name)\n        model.load_state_dict(model_params[\"W\"])\n        V = model_params[\"V\"]\n    return V",
+        "detail": "pytorch.learn1.model_util",
         "documentation": {}
     },
     {
