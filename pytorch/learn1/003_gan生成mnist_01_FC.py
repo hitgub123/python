@@ -11,7 +11,7 @@ hidden_dim = 256  # 隐藏层维度
 image_dim = 28 * 28  # MNIST 图像展平后的大小 (784)
 batch_size = 64  # 批量大小
 epochs = 50  # 训练轮数
-lr = 0.0002 / 2  # 学习率
+lr = 0.0002  # 学习率
 device = torch.device("cpu")  # 用 CPU
 
 # 数据加载和预处理
@@ -93,6 +93,10 @@ def train_gan():
 
             z = torch.randn(batch_size, latent_dim).to(device)  # 随机噪声
             fake_imgs = generator(z)
+            # detach方法：避免计算generator的梯度，减少计算量。
+            # 如果去掉detach，d_optimizer只绑定了判别器的参数，所以d_optimizer.step()不会更新生成器的参数，
+            # 但是生成器参数的梯度会被计算，然后在g_optimizer.zero_grad()被清除。所以不会影响生成器的训练。
+            # 如果没有g_optimizer.zero_grad()，这里的梯度会和g_loss处的梯度累计起来更新生成器的参数。
             d_fake_loss = criterion(
                 discriminator(fake_imgs.detach()), fake_label
             )  # 生成图像损失

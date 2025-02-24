@@ -3,3 +3,4 @@ runs/**
 # .gitignore
 data/**
 pytorch/learn1/__pycache__/**
+pytorch/learn1/test_model.py

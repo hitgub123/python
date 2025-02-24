@@ -1327,7 +1327,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
         "description": "pytorch.learn1.003_gan生成mnist_01_FC",
-        "peekOfCode": "latent_dim = 100  # 噪声向量的维度\nhidden_dim = 256  # 隐藏层维度\nimage_dim = 28 * 28  # MNIST 图像展平后的大小 (784)\nbatch_size = 64  # 批量大小\nepochs = 50  # 训练轮数\nlr = 0.0002 / 2  # 学习率\ndevice = torch.device(\"cpu\")  # 用 CPU\n# 数据加载和预处理\ntransform = transforms.Compose(\n    [transforms.ToTensor(), transforms.Normalize([0.5], [0.5])]  # 归一化到 [-1, 1]",
+        "peekOfCode": "latent_dim = 100  # 噪声向量的维度\nhidden_dim = 256  # 隐藏层维度\nimage_dim = 28 * 28  # MNIST 图像展平后的大小 (784)\nbatch_size = 64  # 批量大小\nepochs = 50  # 训练轮数\nlr = 0.0002  # 学习率\ndevice = torch.device(\"cpu\")  # 用 CPU\n# 数据加载和预处理\ntransform = transforms.Compose(\n    [transforms.ToTensor(), transforms.Normalize([0.5], [0.5])]  # 归一化到 [-1, 1]",
         "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
         "documentation": {}
     },
@@ -1336,7 +1336,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
         "description": "pytorch.learn1.003_gan生成mnist_01_FC",
-        "peekOfCode": "hidden_dim = 256  # 隐藏层维度\nimage_dim = 28 * 28  # MNIST 图像展平后的大小 (784)\nbatch_size = 64  # 批量大小\nepochs = 50  # 训练轮数\nlr = 0.0002 / 2  # 学习率\ndevice = torch.device(\"cpu\")  # 用 CPU\n# 数据加载和预处理\ntransform = transforms.Compose(\n    [transforms.ToTensor(), transforms.Normalize([0.5], [0.5])]  # 归一化到 [-1, 1]\n)",
+        "peekOfCode": "hidden_dim = 256  # 隐藏层维度\nimage_dim = 28 * 28  # MNIST 图像展平后的大小 (784)\nbatch_size = 64  # 批量大小\nepochs = 50  # 训练轮数\nlr = 0.0002  # 学习率\ndevice = torch.device(\"cpu\")  # 用 CPU\n# 数据加载和预处理\ntransform = transforms.Compose(\n    [transforms.ToTensor(), transforms.Normalize([0.5], [0.5])]  # 归一化到 [-1, 1]\n)",
         "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
         "documentation": {}
     },
@@ -1345,7 +1345,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
         "description": "pytorch.learn1.003_gan生成mnist_01_FC",
-        "peekOfCode": "image_dim = 28 * 28  # MNIST 图像展平后的大小 (784)\nbatch_size = 64  # 批量大小\nepochs = 50  # 训练轮数\nlr = 0.0002 / 2  # 学习率\ndevice = torch.device(\"cpu\")  # 用 CPU\n# 数据加载和预处理\ntransform = transforms.Compose(\n    [transforms.ToTensor(), transforms.Normalize([0.5], [0.5])]  # 归一化到 [-1, 1]\n)\nmnist = datasets.MNIST(root=\"./data\", train=True, transform=transform, download=True)",
+        "peekOfCode": "image_dim = 28 * 28  # MNIST 图像展平后的大小 (784)\nbatch_size = 64  # 批量大小\nepochs = 50  # 训练轮数\nlr = 0.0002  # 学习率\ndevice = torch.device(\"cpu\")  # 用 CPU\n# 数据加载和预处理\ntransform = transforms.Compose(\n    [transforms.ToTensor(), transforms.Normalize([0.5], [0.5])]  # 归一化到 [-1, 1]\n)\nmnist = datasets.MNIST(root=\"./data\", train=True, transform=transform, download=True)",
         "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
         "documentation": {}
     },
@@ -1354,7 +1354,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
         "description": "pytorch.learn1.003_gan生成mnist_01_FC",
-        "peekOfCode": "batch_size = 64  # 批量大小\nepochs = 50  # 训练轮数\nlr = 0.0002 / 2  # 学习率\ndevice = torch.device(\"cpu\")  # 用 CPU\n# 数据加载和预处理\ntransform = transforms.Compose(\n    [transforms.ToTensor(), transforms.Normalize([0.5], [0.5])]  # 归一化到 [-1, 1]\n)\nmnist = datasets.MNIST(root=\"./data\", train=True, transform=transform, download=True)\ndataloader = DataLoader(mnist, batch_size=batch_size, shuffle=True)",
+        "peekOfCode": "batch_size = 64  # 批量大小\nepochs = 50  # 训练轮数\nlr = 0.0002  # 学习率\ndevice = torch.device(\"cpu\")  # 用 CPU\n# 数据加载和预处理\ntransform = transforms.Compose(\n    [transforms.ToTensor(), transforms.Normalize([0.5], [0.5])]  # 归一化到 [-1, 1]\n)\nmnist = datasets.MNIST(root=\"./data\", train=True, transform=transform, download=True)\ndataloader = DataLoader(mnist, batch_size=batch_size, shuffle=True)",
         "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
         "documentation": {}
     },
@@ -1363,7 +1363,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
         "description": "pytorch.learn1.003_gan生成mnist_01_FC",
-        "peekOfCode": "epochs = 50  # 训练轮数\nlr = 0.0002 / 2  # 学习率\ndevice = torch.device(\"cpu\")  # 用 CPU\n# 数据加载和预处理\ntransform = transforms.Compose(\n    [transforms.ToTensor(), transforms.Normalize([0.5], [0.5])]  # 归一化到 [-1, 1]\n)\nmnist = datasets.MNIST(root=\"./data\", train=True, transform=transform, download=True)\ndataloader = DataLoader(mnist, batch_size=batch_size, shuffle=True)\n# 生成器网络",
+        "peekOfCode": "epochs = 50  # 训练轮数\nlr = 0.0002  # 学习率\ndevice = torch.device(\"cpu\")  # 用 CPU\n# 数据加载和预处理\ntransform = transforms.Compose(\n    [transforms.ToTensor(), transforms.Normalize([0.5], [0.5])]  # 归一化到 [-1, 1]\n)\nmnist = datasets.MNIST(root=\"./data\", train=True, transform=transform, download=True)\ndataloader = DataLoader(mnist, batch_size=batch_size, shuffle=True)\n# 生成器网络",
         "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
         "documentation": {}
     },
@@ -1372,7 +1372,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.003_gan生成mnist_01_FC",
         "description": "pytorch.learn1.003_gan生成mnist_01_FC",
-        "peekOfCode": "lr = 0.0002 / 2  # 学习率\ndevice = torch.device(\"cpu\")  # 用 CPU\n# 数据加载和预处理\ntransform = transforms.Compose(\n    [transforms.ToTensor(), transforms.Normalize([0.5], [0.5])]  # 归一化到 [-1, 1]\n)\nmnist = datasets.MNIST(root=\"./data\", train=True, transform=transform, download=True)\ndataloader = DataLoader(mnist, batch_size=batch_size, shuffle=True)\n# 生成器网络\nclass Generator(nn.Module):",
+        "peekOfCode": "lr = 0.0002  # 学习率\ndevice = torch.device(\"cpu\")  # 用 CPU\n# 数据加载和预处理\ntransform = transforms.Compose(\n    [transforms.ToTensor(), transforms.Normalize([0.5], [0.5])]  # 归一化到 [-1, 1]\n)\nmnist = datasets.MNIST(root=\"./data\", train=True, transform=transform, download=True)\ndataloader = DataLoader(mnist, batch_size=batch_size, shuffle=True)\n# 生成器网络\nclass Generator(nn.Module):",
         "detail": "pytorch.learn1.003_gan生成mnist_01_FC",
         "documentation": {}
     },
@@ -1462,7 +1462,7 @@
         "kind": 2,
         "importPath": "pytorch.learn1.model_util",
         "description": "pytorch.learn1.model_util",
-        "peekOfCode": "def get_model_name(suffix):\n    if suffix:\n        model_name = os.path.basename(__file__).replace(\".py\", \"_{}.pkl\".format(suffix))\n    else:\n        model_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\n    model_name = \"pytorch/learn1/models/{}\".format(model_name)\n    return model_name\ndef save_model(model, model_name, max_rate):\n    torch.save({\"V\": max_rate, \"W\": model.state_dict()}, model_name)\ndef load_model(model, model_name):",
+        "peekOfCode": "def get_model_name(suffix):\n    if suffix:\n        model_name = os.path.basename(__file__).replace(\".py\", f\"_{suffix}.pkl\")\n    else:\n        model_name = os.path.basename(__file__).replace(\".py\", \".pkl\")\n    model_name = f\"pytorch/learn1/models/{model_name}\"\n    return model_name\ndef save_model(model, model_name, max_rate):\n    torch.save({\"V\": max_rate, \"W\": model.state_dict()}, model_name)\ndef load_model(model, model_name):",
         "detail": "pytorch.learn1.model_util",
         "documentation": {}
     },
@@ -1489,7 +1489,7 @@
         "kind": 2,
         "importPath": "pytorch.learn1.test_model",
         "description": "pytorch.learn1.test_model",
-        "peekOfCode": "def g():\n    print(a, datetime.datetime.now())\ng()",
+        "peekOfCode": "def g():\n    print(a, datetime.datetime.now())\n    tc.ran\ng()",
         "detail": "pytorch.learn1.test_model",
         "documentation": {}
     }

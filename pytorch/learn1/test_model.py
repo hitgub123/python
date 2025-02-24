@@ -8,5 +8,6 @@ from sklearn.datasets import fetch_openml
 a=1
 def g():
     print(a, datetime.datetime.now())
+    tc.ran
 
 g()

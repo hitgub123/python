@@ -3,10 +3,10 @@ import torch, os
 
 def get_model_name(suffix):
     if suffix:
-        model_name = os.path.basename(__file__).replace(".py", "_{}.pkl".format(suffix))
+        model_name = os.path.basename(__file__).replace(".py", f"_{suffix}.pkl")
     else:
         model_name = os.path.basename(__file__).replace(".py", ".pkl")
-    model_name = "pytorch/learn1/models/{}".format(model_name)
+    model_name = f"pytorch/learn1/models/{model_name}"
     return model_name
 
 
