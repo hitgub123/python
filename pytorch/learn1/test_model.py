@@ -1,13 +1,3 @@
-import torch as tc, numpy as np, pandas as pd, os, datetime
-from sklearn import preprocessing
-from sklearn.datasets import fetch_openml
+import torch,re
+print(re.fullmatch(r"[a-zA-Z0-8]+", "Dd8o9g"))
 
-#####################################################
-#################### data ##########################
-#####################################################
-a=1
-def g():
-    print(a, datetime.datetime.now())
-    tc.ran
-
-g()

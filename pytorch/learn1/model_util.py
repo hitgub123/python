@@ -1,17 +1,17 @@
 import torch, os
 
 
-def get_model_name(suffix):
+def get_model_name(base_file_name,suffix=None):
     if suffix:
-        model_name = os.path.basename(__file__).replace(".py", f"_{suffix}.pkl")
+        model_name = os.path.basename(base_file_name).replace(".py", f"_{suffix}.pkl")
     else:
-        model_name = os.path.basename(__file__).replace(".py", ".pkl")
+        model_name = os.path.basename(base_file_name).replace(".py", ".pkl")
     model_name = f"pytorch/learn1/models/{model_name}"
     return model_name
 
 
-def save_model(model, model_name, max_rate):
-    torch.save({"V": max_rate, "W": model.state_dict()}, model_name)
+def save_model(model, model_name, V):
+    torch.save({"V": V, "W": model.state_dict()}, model_name)
 
 
 def load_model(model, model_name):

@@ -69,10 +69,10 @@ criterion = nn.BCELoss()  # 二元交叉熵损失
 
 # 训练函数
 def train_gan():
-    model_name_g = model_util.get_model_name("g")
+    model_name_g = model_util.get_model_name(__file__, "g")
     V_g = model_util.load_model(generator, model_name_g)
     V_g = sys.maxsize if V_g == 0 else V_g
-    model_name_d = model_util.get_model_name("d")
+    model_name_d = model_util.get_model_name(__file__, "d")
     V_d = model_util.load_model(discriminator, model_name_d)
     V_d = sys.maxsize if V_d == 0 else V_d
     for epoch in range(epochs):
