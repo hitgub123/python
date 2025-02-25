@@ -8,13 +8,13 @@ vocab_size = 5000  # 词汇表大小
 embedding_dim = 100  # 词嵌入维度
 hidden_dim = 128  # RNN 隐藏层维度
 output_dim = 4  # 类别数（假设 4 类新闻）
-max_len = 50  # 最大序列长度(20)
+max_len = 20  # 最大序列长度(20)
 batch_size = 32
 epochs = 100
-lr = 0.001/2
+lr = 0.001
 device = torch.device("cpu")  # 用 CPU
 
-text_col = 2
+text_col = 1
 train_data_label = pd.read_csv(
     "pytorch/learn1/datas/AG_NEWS/train.csv", header=None
 ).to_numpy()
@@ -67,14 +67,6 @@ test_data_label_handled = handle_data(test_data, test_label)
 
 train_loader = DataLoader(train_data_label_handled, batch_size=batch_size, shuffle=True)
 test_loader = DataLoader(test_data_label_handled, batch_size=batch_size)
-
-# test_data = np.concatenate(test_data).astype(np.int64).reshape(test_data.shape[0], -1)
-# test_label = test_label.astype(np.int64)
-# test_data = torch.from_numpy(test_data)
-# test_label = torch.from_numpy(test_label)
-# b = [(test_data[i], test_label[i]) for i in range(test_data.shape[0])]
-# test_loader = DataLoader(b, batch_size=batch_size)
-
 
 # RNN 模型
 class RNNClassifier(nn.Module):

@@ -1533,7 +1533,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "description": "pytorch.learn1.004_基于RNN的新闻分类_01",
-        "peekOfCode": "vocab_size = 5000  # 词汇表大小\nembedding_dim = 100  # 词嵌入维度\nhidden_dim = 128  # RNN 隐藏层维度\noutput_dim = 4  # 类别数（假设 4 类新闻）\nmax_len = 50  # 最大序列长度(20)\nbatch_size = 32\nepochs = 100\nlr = 0.001/2\ndevice = torch.device(\"cpu\")  # 用 CPU\ntext_col = 2",
+        "peekOfCode": "vocab_size = 5000  # 词汇表大小\nembedding_dim = 100  # 词嵌入维度\nhidden_dim = 128  # RNN 隐藏层维度\noutput_dim = 4  # 类别数（假设 4 类新闻）\nmax_len = 20  # 最大序列长度(20)\nbatch_size = 32\nepochs = 100\nlr = 0.001\ndevice = torch.device(\"cpu\")  # 用 CPU\ntext_col = 1",
         "detail": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "documentation": {}
     },
@@ -1542,7 +1542,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "description": "pytorch.learn1.004_基于RNN的新闻分类_01",
-        "peekOfCode": "embedding_dim = 100  # 词嵌入维度\nhidden_dim = 128  # RNN 隐藏层维度\noutput_dim = 4  # 类别数（假设 4 类新闻）\nmax_len = 50  # 最大序列长度(20)\nbatch_size = 32\nepochs = 100\nlr = 0.001/2\ndevice = torch.device(\"cpu\")  # 用 CPU\ntext_col = 2\ntrain_data_label = pd.read_csv(",
+        "peekOfCode": "embedding_dim = 100  # 词嵌入维度\nhidden_dim = 128  # RNN 隐藏层维度\noutput_dim = 4  # 类别数（假设 4 类新闻）\nmax_len = 20  # 最大序列长度(20)\nbatch_size = 32\nepochs = 100\nlr = 0.001\ndevice = torch.device(\"cpu\")  # 用 CPU\ntext_col = 1\ntrain_data_label = pd.read_csv(",
         "detail": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "documentation": {}
     },
@@ -1551,7 +1551,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "description": "pytorch.learn1.004_基于RNN的新闻分类_01",
-        "peekOfCode": "hidden_dim = 128  # RNN 隐藏层维度\noutput_dim = 4  # 类别数（假设 4 类新闻）\nmax_len = 50  # 最大序列长度(20)\nbatch_size = 32\nepochs = 100\nlr = 0.001/2\ndevice = torch.device(\"cpu\")  # 用 CPU\ntext_col = 2\ntrain_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/train.csv\", header=None",
+        "peekOfCode": "hidden_dim = 128  # RNN 隐藏层维度\noutput_dim = 4  # 类别数（假设 4 类新闻）\nmax_len = 20  # 最大序列长度(20)\nbatch_size = 32\nepochs = 100\nlr = 0.001\ndevice = torch.device(\"cpu\")  # 用 CPU\ntext_col = 1\ntrain_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/train.csv\", header=None",
         "detail": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "documentation": {}
     },
@@ -1560,7 +1560,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "description": "pytorch.learn1.004_基于RNN的新闻分类_01",
-        "peekOfCode": "output_dim = 4  # 类别数（假设 4 类新闻）\nmax_len = 50  # 最大序列长度(20)\nbatch_size = 32\nepochs = 100\nlr = 0.001/2\ndevice = torch.device(\"cpu\")  # 用 CPU\ntext_col = 2\ntrain_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/train.csv\", header=None\n).to_numpy()",
+        "peekOfCode": "output_dim = 4  # 类别数（假设 4 类新闻）\nmax_len = 20  # 最大序列长度(20)\nbatch_size = 32\nepochs = 100\nlr = 0.001\ndevice = torch.device(\"cpu\")  # 用 CPU\ntext_col = 1\ntrain_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/train.csv\", header=None\n).to_numpy()",
         "detail": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "documentation": {}
     },
@@ -1569,7 +1569,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "description": "pytorch.learn1.004_基于RNN的新闻分类_01",
-        "peekOfCode": "max_len = 50  # 最大序列长度(20)\nbatch_size = 32\nepochs = 100\nlr = 0.001/2\ndevice = torch.device(\"cpu\")  # 用 CPU\ntext_col = 2\ntrain_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/train.csv\", header=None\n).to_numpy()\ntrain_data, train_label = train_data_label[:, text_col], train_data_label[:, 0] - 1",
+        "peekOfCode": "max_len = 20  # 最大序列长度(20)\nbatch_size = 32\nepochs = 100\nlr = 0.001\ndevice = torch.device(\"cpu\")  # 用 CPU\ntext_col = 1\ntrain_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/train.csv\", header=None\n).to_numpy()\ntrain_data, train_label = train_data_label[:, text_col], train_data_label[:, 0] - 1",
         "detail": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "documentation": {}
     },
@@ -1578,7 +1578,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "description": "pytorch.learn1.004_基于RNN的新闻分类_01",
-        "peekOfCode": "batch_size = 32\nepochs = 100\nlr = 0.001/2\ndevice = torch.device(\"cpu\")  # 用 CPU\ntext_col = 2\ntrain_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/train.csv\", header=None\n).to_numpy()\ntrain_data, train_label = train_data_label[:, text_col], train_data_label[:, 0] - 1\ntest_data_label = pd.read_csv(",
+        "peekOfCode": "batch_size = 32\nepochs = 100\nlr = 0.001\ndevice = torch.device(\"cpu\")  # 用 CPU\ntext_col = 1\ntrain_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/train.csv\", header=None\n).to_numpy()\ntrain_data, train_label = train_data_label[:, text_col], train_data_label[:, 0] - 1\ntest_data_label = pd.read_csv(",
         "detail": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "documentation": {}
     },
@@ -1587,7 +1587,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "description": "pytorch.learn1.004_基于RNN的新闻分类_01",
-        "peekOfCode": "epochs = 100\nlr = 0.001/2\ndevice = torch.device(\"cpu\")  # 用 CPU\ntext_col = 2\ntrain_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/train.csv\", header=None\n).to_numpy()\ntrain_data, train_label = train_data_label[:, text_col], train_data_label[:, 0] - 1\ntest_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/test.csv\", header=None",
+        "peekOfCode": "epochs = 100\nlr = 0.001\ndevice = torch.device(\"cpu\")  # 用 CPU\ntext_col = 1\ntrain_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/train.csv\", header=None\n).to_numpy()\ntrain_data, train_label = train_data_label[:, text_col], train_data_label[:, 0] - 1\ntest_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/test.csv\", header=None",
         "detail": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "documentation": {}
     },
@@ -1596,7 +1596,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "description": "pytorch.learn1.004_基于RNN的新闻分类_01",
-        "peekOfCode": "lr = 0.001/2\ndevice = torch.device(\"cpu\")  # 用 CPU\ntext_col = 2\ntrain_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/train.csv\", header=None\n).to_numpy()\ntrain_data, train_label = train_data_label[:, text_col], train_data_label[:, 0] - 1\ntest_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/test.csv\", header=None\n).to_numpy()",
+        "peekOfCode": "lr = 0.001\ndevice = torch.device(\"cpu\")  # 用 CPU\ntext_col = 1\ntrain_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/train.csv\", header=None\n).to_numpy()\ntrain_data, train_label = train_data_label[:, text_col], train_data_label[:, 0] - 1\ntest_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/test.csv\", header=None\n).to_numpy()",
         "detail": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "documentation": {}
     },
@@ -1605,7 +1605,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "description": "pytorch.learn1.004_基于RNN的新闻分类_01",
-        "peekOfCode": "device = torch.device(\"cpu\")  # 用 CPU\ntext_col = 2\ntrain_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/train.csv\", header=None\n).to_numpy()\ntrain_data, train_label = train_data_label[:, text_col], train_data_label[:, 0] - 1\ntest_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/test.csv\", header=None\n).to_numpy()\ntest_data, test_label = test_data_label[:, text_col], test_data_label[:, 0] - 1",
+        "peekOfCode": "device = torch.device(\"cpu\")  # 用 CPU\ntext_col = 1\ntrain_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/train.csv\", header=None\n).to_numpy()\ntrain_data, train_label = train_data_label[:, text_col], train_data_label[:, 0] - 1\ntest_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/test.csv\", header=None\n).to_numpy()\ntest_data, test_label = test_data_label[:, text_col], test_data_label[:, 0] - 1",
         "detail": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "documentation": {}
     },
@@ -1614,7 +1614,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "description": "pytorch.learn1.004_基于RNN的新闻分类_01",
-        "peekOfCode": "text_col = 2\ntrain_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/train.csv\", header=None\n).to_numpy()\ntrain_data, train_label = train_data_label[:, text_col], train_data_label[:, 0] - 1\ntest_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/test.csv\", header=None\n).to_numpy()\ntest_data, test_label = test_data_label[:, text_col], test_data_label[:, 0] - 1\ntest_news_lst = test_data_label[:, text_col].copy()",
+        "peekOfCode": "text_col = 1\ntrain_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/train.csv\", header=None\n).to_numpy()\ntrain_data, train_label = train_data_label[:, text_col], train_data_label[:, 0] - 1\ntest_data_label = pd.read_csv(\n    \"pytorch/learn1/datas/AG_NEWS/test.csv\", header=None\n).to_numpy()\ntest_data, test_label = test_data_label[:, text_col], test_data_label[:, 0] - 1\ntest_news_lst = test_data_label[:, text_col].copy()",
         "detail": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "documentation": {}
     },
@@ -1659,7 +1659,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "description": "pytorch.learn1.004_基于RNN的新闻分类_01",
-        "peekOfCode": "train_data_label_handled = handle_data(train_data, train_label)\ntest_data_label_handled = handle_data(test_data, test_label)\ntrain_loader = DataLoader(train_data_label_handled, batch_size=batch_size, shuffle=True)\ntest_loader = DataLoader(test_data_label_handled, batch_size=batch_size)\n# test_data = np.concatenate(test_data).astype(np.int64).reshape(test_data.shape[0], -1)\n# test_label = test_label.astype(np.int64)\n# test_data = torch.from_numpy(test_data)\n# test_label = torch.from_numpy(test_label)\n# b = [(test_data[i], test_label[i]) for i in range(test_data.shape[0])]\n# test_loader = DataLoader(b, batch_size=batch_size)",
+        "peekOfCode": "train_data_label_handled = handle_data(train_data, train_label)\ntest_data_label_handled = handle_data(test_data, test_label)\ntrain_loader = DataLoader(train_data_label_handled, batch_size=batch_size, shuffle=True)\ntest_loader = DataLoader(test_data_label_handled, batch_size=batch_size)\n# RNN 模型\nclass RNNClassifier(nn.Module):\n    def __init__(self, vocab_size, embedding_dim, hidden_dim, output_dim):\n        super(RNNClassifier, self).__init__()\n        self.embedding = nn.Embedding(vocab_size, embedding_dim, padding_idx=0)\n        self.rnn = nn.RNN(embedding_dim, hidden_dim, batch_first=True)",
         "detail": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "documentation": {}
     },
@@ -1668,7 +1668,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "description": "pytorch.learn1.004_基于RNN的新闻分类_01",
-        "peekOfCode": "test_data_label_handled = handle_data(test_data, test_label)\ntrain_loader = DataLoader(train_data_label_handled, batch_size=batch_size, shuffle=True)\ntest_loader = DataLoader(test_data_label_handled, batch_size=batch_size)\n# test_data = np.concatenate(test_data).astype(np.int64).reshape(test_data.shape[0], -1)\n# test_label = test_label.astype(np.int64)\n# test_data = torch.from_numpy(test_data)\n# test_label = torch.from_numpy(test_label)\n# b = [(test_data[i], test_label[i]) for i in range(test_data.shape[0])]\n# test_loader = DataLoader(b, batch_size=batch_size)\n# RNN 模型",
+        "peekOfCode": "test_data_label_handled = handle_data(test_data, test_label)\ntrain_loader = DataLoader(train_data_label_handled, batch_size=batch_size, shuffle=True)\ntest_loader = DataLoader(test_data_label_handled, batch_size=batch_size)\n# RNN 模型\nclass RNNClassifier(nn.Module):\n    def __init__(self, vocab_size, embedding_dim, hidden_dim, output_dim):\n        super(RNNClassifier, self).__init__()\n        self.embedding = nn.Embedding(vocab_size, embedding_dim, padding_idx=0)\n        self.rnn = nn.RNN(embedding_dim, hidden_dim, batch_first=True)\n        self.fc = nn.Linear(hidden_dim, output_dim)",
         "detail": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "documentation": {}
     },
@@ -1677,7 +1677,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "description": "pytorch.learn1.004_基于RNN的新闻分类_01",
-        "peekOfCode": "train_loader = DataLoader(train_data_label_handled, batch_size=batch_size, shuffle=True)\ntest_loader = DataLoader(test_data_label_handled, batch_size=batch_size)\n# test_data = np.concatenate(test_data).astype(np.int64).reshape(test_data.shape[0], -1)\n# test_label = test_label.astype(np.int64)\n# test_data = torch.from_numpy(test_data)\n# test_label = torch.from_numpy(test_label)\n# b = [(test_data[i], test_label[i]) for i in range(test_data.shape[0])]\n# test_loader = DataLoader(b, batch_size=batch_size)\n# RNN 模型\nclass RNNClassifier(nn.Module):",
+        "peekOfCode": "train_loader = DataLoader(train_data_label_handled, batch_size=batch_size, shuffle=True)\ntest_loader = DataLoader(test_data_label_handled, batch_size=batch_size)\n# RNN 模型\nclass RNNClassifier(nn.Module):\n    def __init__(self, vocab_size, embedding_dim, hidden_dim, output_dim):\n        super(RNNClassifier, self).__init__()\n        self.embedding = nn.Embedding(vocab_size, embedding_dim, padding_idx=0)\n        self.rnn = nn.RNN(embedding_dim, hidden_dim, batch_first=True)\n        self.fc = nn.Linear(hidden_dim, output_dim)\n    def forward(self, text):",
         "detail": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "documentation": {}
     },
@@ -1686,7 +1686,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "description": "pytorch.learn1.004_基于RNN的新闻分类_01",
-        "peekOfCode": "test_loader = DataLoader(test_data_label_handled, batch_size=batch_size)\n# test_data = np.concatenate(test_data).astype(np.int64).reshape(test_data.shape[0], -1)\n# test_label = test_label.astype(np.int64)\n# test_data = torch.from_numpy(test_data)\n# test_label = torch.from_numpy(test_label)\n# b = [(test_data[i], test_label[i]) for i in range(test_data.shape[0])]\n# test_loader = DataLoader(b, batch_size=batch_size)\n# RNN 模型\nclass RNNClassifier(nn.Module):\n    def __init__(self, vocab_size, embedding_dim, hidden_dim, output_dim):",
+        "peekOfCode": "test_loader = DataLoader(test_data_label_handled, batch_size=batch_size)\n# RNN 模型\nclass RNNClassifier(nn.Module):\n    def __init__(self, vocab_size, embedding_dim, hidden_dim, output_dim):\n        super(RNNClassifier, self).__init__()\n        self.embedding = nn.Embedding(vocab_size, embedding_dim, padding_idx=0)\n        self.rnn = nn.RNN(embedding_dim, hidden_dim, batch_first=True)\n        self.fc = nn.Linear(hidden_dim, output_dim)\n    def forward(self, text):\n        # text: [batch_size, max_len]",
         "detail": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "documentation": {}
     },
