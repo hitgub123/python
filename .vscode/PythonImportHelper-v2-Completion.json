@@ -180,6 +180,38 @@
         "documentation": {}
     },
     {
+        "label": "Dataset",
+        "importPath": "torch.utils.data",
+        "description": "torch.utils.data",
+        "isExtraImport": true,
+        "detail": "torch.utils.data",
+        "documentation": {}
+    },
+    {
+        "label": "DataLoader",
+        "importPath": "torch.utils.data",
+        "description": "torch.utils.data",
+        "isExtraImport": true,
+        "detail": "torch.utils.data",
+        "documentation": {}
+    },
+    {
+        "label": "Dataset",
+        "importPath": "torch.utils.data",
+        "description": "torch.utils.data",
+        "isExtraImport": true,
+        "detail": "torch.utils.data",
+        "documentation": {}
+    },
+    {
+        "label": "DataLoader",
+        "importPath": "torch.utils.data",
+        "description": "torch.utils.data",
+        "isExtraImport": true,
+        "detail": "torch.utils.data",
+        "documentation": {}
+    },
+    {
         "label": "matplotlib.pyplot",
         "kind": 6,
         "isExtraImport": true,
@@ -194,6 +226,87 @@
         "description": "collections",
         "isExtraImport": true,
         "detail": "collections",
+        "documentation": {}
+    },
+    {
+        "label": "DistilBertModel",
+        "importPath": "transformers",
+        "description": "transformers",
+        "isExtraImport": true,
+        "detail": "transformers",
+        "documentation": {}
+    },
+    {
+        "label": "DistilBertTokenizer",
+        "importPath": "transformers",
+        "description": "transformers",
+        "isExtraImport": true,
+        "detail": "transformers",
+        "documentation": {}
+    },
+    {
+        "label": "DistilBertForSequenceClassification",
+        "importPath": "transformers",
+        "description": "transformers",
+        "isExtraImport": true,
+        "detail": "transformers",
+        "documentation": {}
+    },
+    {
+        "label": "DistilBertModel",
+        "importPath": "transformers",
+        "description": "transformers",
+        "isExtraImport": true,
+        "detail": "transformers",
+        "documentation": {}
+    },
+    {
+        "label": "DistilBertTokenizer",
+        "importPath": "transformers",
+        "description": "transformers",
+        "isExtraImport": true,
+        "detail": "transformers",
+        "documentation": {}
+    },
+    {
+        "label": "GPT2Tokenizer",
+        "importPath": "transformers",
+        "description": "transformers",
+        "isExtraImport": true,
+        "detail": "transformers",
+        "documentation": {}
+    },
+    {
+        "label": "GPT2LMHeadModel",
+        "importPath": "transformers",
+        "description": "transformers",
+        "isExtraImport": true,
+        "detail": "transformers",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "cosine_similarity",
+        "importPath": "sklearn.metrics.pairwise",
+        "description": "sklearn.metrics.pairwise",
+        "isExtraImport": true,
+        "detail": "sklearn.metrics.pairwise",
+        "documentation": {}
+    },
+    {
+        "label": "cosine_similarity",
+        "importPath": "sklearn.metrics.pairwise",
+        "description": "sklearn.metrics.pairwise",
+        "isExtraImport": true,
+        "detail": "sklearn.metrics.pairwise",
         "documentation": {}
     },
     {
@@ -1742,6 +1855,411 @@
         "description": "pytorch.learn1.004_基于RNN的新闻分类_01",
         "peekOfCode": "classes = [\"World\", \"Sports\", \"Business\", \"Science/Technology\"]\nfor i in range(10):\n    test_news = test_news_lst[i]\n    seq = test_data[i].to(device)\n    actual = test_label[i]\n    with torch.no_grad():\n        pred = model(seq)\n        label = torch.argmax(pred).item()\n        print(f\"News: {test_news}, Predicted: {classes[label]},Result: {actual==label}\")",
         "detail": "pytorch.learn1.004_基于RNN的新闻分类_01",
+        "documentation": {}
+    },
+    {
+        "label": "RAGGenerator",
+        "kind": 6,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "class RAGGenerator(nn.Module):\n    def __init__(self, num_labels):\n        super(RAGGenerator, self).__init__()\n        self.distilbert = DistilBertForSequenceClassification.from_pretrained(\n            \"distilbert-base-uncased\", num_labels=num_labels\n        )\n        # 冻结大部分层，只微调分类头\n        for param in self.distilbert.distilbert.parameters():\n            param.requires_grad = False  # 冻结 Transformer 层\n    def forward(self, input_ids, attention_mask):",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "RAGDataset",
+        "kind": 6,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "class RAGDataset(Dataset):\n    def __init__(self, queries, answers):\n        self.queries = queries\n        self.answers = answers\n    def __len__(self):\n        return len(self.queries)\n    def __getitem__(self, idx):\n        query = self.queries[idx]\n        retrieved = retrieve(query)[0]  # 检索到的答案\n        inputs = tokenizer(",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "get_embedding",
+        "kind": 2,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "def get_embedding(text):\n    inputs = tokenizer(\n        text, return_tensors=\"pt\", truncation=True, padding=True, max_length=max_length\n    ).to(device)\n    with torch.no_grad():\n        outputs = bert_model(**inputs)\n    return outputs.last_hidden_state[:, 0, :].squeeze().cpu().numpy()  # CLS 向量\ndoc_embeddings = [get_embedding(doc[\"question\"]) for doc in documents]\n# 检索函数\ndef retrieve(query, top_k=1):",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "retrieve",
+        "kind": 2,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "def retrieve(query, top_k=1):\n    query_emb = get_embedding(query)\n    similarities = cosine_similarity([query_emb], doc_embeddings)[0]\n    top_idx = np.argsort(similarities)[-top_k:][::-1]\n    return [documents[idx][\"answer\"] for idx in top_idx]\n# 生成模型（DistilBERT for Sequence Classification）\nclass RAGGenerator(nn.Module):\n    def __init__(self, num_labels):\n        super(RAGGenerator, self).__init__()\n        self.distilbert = DistilBertForSequenceClassification.from_pretrained(",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "train",
+        "kind": 2,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "def train(model, dataloader, epochs=10):\n    model.train()\n    for epoch in range(epochs):\n        total_loss = 0\n        for input_ids, attention_mask, targets in dataloader:\n            input_ids, attention_mask, targets = (\n                input_ids.to(device),\n                attention_mask.to(device),\n                targets.to(device),\n            )",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "rag_demo",
+        "kind": 2,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "def rag_demo(query):\n    retrieved = retrieve(query)[0]\n    print(f\"Retrieved: {retrieved}\")\n    inputs = tokenizer(\n        retrieved,\n        return_tensors=\"pt\",\n        truncation=True,\n        padding=\"max_length\",\n        max_length=max_length,\n    ).to(device)",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "embedding_dim",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "embedding_dim = 768  # DistilBERT 输出维度\nbatch_size = 1  # 小批量，CPU 友好\nmax_length = 20  # 短序列，减少内存\nnum_labels = 3  # 假设 3 个回答类别（简化）\ndevice = torch.device(\"cpu\")\n# 模拟文档数据集（FAQ）\ndocuments = [\n    {\"question\": \"什么是人工智能？\", \"answer\": \"人工智能是模拟人类智能的技术。\"},\n    {\"question\": \"机器学习怎么工作？\", \"answer\": \"机器学习通过数据训练模型。\"},\n    {\"question\": \"深度学习有什么用？\", \"answer\": \"深度学习用于图像和语言处理。\"},",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "batch_size",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "batch_size = 1  # 小批量，CPU 友好\nmax_length = 20  # 短序列，减少内存\nnum_labels = 3  # 假设 3 个回答类别（简化）\ndevice = torch.device(\"cpu\")\n# 模拟文档数据集（FAQ）\ndocuments = [\n    {\"question\": \"什么是人工智能？\", \"answer\": \"人工智能是模拟人类智能的技术。\"},\n    {\"question\": \"机器学习怎么工作？\", \"answer\": \"机器学习通过数据训练模型。\"},\n    {\"question\": \"深度学习有什么用？\", \"answer\": \"深度学习用于图像和语言处理。\"},\n]",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "max_length",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "max_length = 20  # 短序列，减少内存\nnum_labels = 3  # 假设 3 个回答类别（简化）\ndevice = torch.device(\"cpu\")\n# 模拟文档数据集（FAQ）\ndocuments = [\n    {\"question\": \"什么是人工智能？\", \"answer\": \"人工智能是模拟人类智能的技术。\"},\n    {\"question\": \"机器学习怎么工作？\", \"answer\": \"机器学习通过数据训练模型。\"},\n    {\"question\": \"深度学习有什么用？\", \"answer\": \"深度学习用于图像和语言处理。\"},\n]\n# 加载 DistilBERT（用于检索嵌入）",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "num_labels",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "num_labels = 3  # 假设 3 个回答类别（简化）\ndevice = torch.device(\"cpu\")\n# 模拟文档数据集（FAQ）\ndocuments = [\n    {\"question\": \"什么是人工智能？\", \"answer\": \"人工智能是模拟人类智能的技术。\"},\n    {\"question\": \"机器学习怎么工作？\", \"answer\": \"机器学习通过数据训练模型。\"},\n    {\"question\": \"深度学习有什么用？\", \"answer\": \"深度学习用于图像和语言处理。\"},\n]\n# 加载 DistilBERT（用于检索嵌入）\ntokenizer = DistilBertTokenizer.from_pretrained(\"distilbert-base-uncased\")",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "device",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "device = torch.device(\"cpu\")\n# 模拟文档数据集（FAQ）\ndocuments = [\n    {\"question\": \"什么是人工智能？\", \"answer\": \"人工智能是模拟人类智能的技术。\"},\n    {\"question\": \"机器学习怎么工作？\", \"answer\": \"机器学习通过数据训练模型。\"},\n    {\"question\": \"深度学习有什么用？\", \"answer\": \"深度学习用于图像和语言处理。\"},\n]\n# 加载 DistilBERT（用于检索嵌入）\ntokenizer = DistilBertTokenizer.from_pretrained(\"distilbert-base-uncased\")\nbert_model = DistilBertModel.from_pretrained(\"distilbert-base-uncased\").to(device)",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "documents",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "documents = [\n    {\"question\": \"什么是人工智能？\", \"answer\": \"人工智能是模拟人类智能的技术。\"},\n    {\"question\": \"机器学习怎么工作？\", \"answer\": \"机器学习通过数据训练模型。\"},\n    {\"question\": \"深度学习有什么用？\", \"answer\": \"深度学习用于图像和语言处理。\"},\n]\n# 加载 DistilBERT（用于检索嵌入）\ntokenizer = DistilBertTokenizer.from_pretrained(\"distilbert-base-uncased\")\nbert_model = DistilBertModel.from_pretrained(\"distilbert-base-uncased\").to(device)\nbert_model.eval()\n# 生成文档嵌入",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "tokenizer",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "tokenizer = DistilBertTokenizer.from_pretrained(\"distilbert-base-uncased\")\nbert_model = DistilBertModel.from_pretrained(\"distilbert-base-uncased\").to(device)\nbert_model.eval()\n# 生成文档嵌入\ndef get_embedding(text):\n    inputs = tokenizer(\n        text, return_tensors=\"pt\", truncation=True, padding=True, max_length=max_length\n    ).to(device)\n    with torch.no_grad():\n        outputs = bert_model(**inputs)",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "bert_model",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "bert_model = DistilBertModel.from_pretrained(\"distilbert-base-uncased\").to(device)\nbert_model.eval()\n# 生成文档嵌入\ndef get_embedding(text):\n    inputs = tokenizer(\n        text, return_tensors=\"pt\", truncation=True, padding=True, max_length=max_length\n    ).to(device)\n    with torch.no_grad():\n        outputs = bert_model(**inputs)\n    return outputs.last_hidden_state[:, 0, :].squeeze().cpu().numpy()  # CLS 向量",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "doc_embeddings",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "doc_embeddings = [get_embedding(doc[\"question\"]) for doc in documents]\n# 检索函数\ndef retrieve(query, top_k=1):\n    query_emb = get_embedding(query)\n    similarities = cosine_similarity([query_emb], doc_embeddings)[0]\n    top_idx = np.argsort(similarities)[-top_k:][::-1]\n    return [documents[idx][\"answer\"] for idx in top_idx]\n# 生成模型（DistilBERT for Sequence Classification）\nclass RAGGenerator(nn.Module):\n    def __init__(self, num_labels):",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "queries",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "queries = [\"人工智能是什么？\", \"机器学习如何运作？\", \"深度学习的应用有哪些？\"]\nanswers = [\n    \"人工智能是模拟人类智能的技术。\",\n    \"机器学习通过数据训练模型。\",\n    \"深度学习用于图像和语言处理。\",\n]\ndataset = RAGDataset(queries, answers)\ndataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)\n# 初始化模型\ngenerator = RAGGenerator(num_labels).to(device)",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "answers",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "answers = [\n    \"人工智能是模拟人类智能的技术。\",\n    \"机器学习通过数据训练模型。\",\n    \"深度学习用于图像和语言处理。\",\n]\ndataset = RAGDataset(queries, answers)\ndataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)\n# 初始化模型\ngenerator = RAGGenerator(num_labels).to(device)\noptimizer = torch.optim.Adam(generator.parameters(), lr=2e-5)  # 小学习率",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "dataset",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "dataset = RAGDataset(queries, answers)\ndataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)\n# 初始化模型\ngenerator = RAGGenerator(num_labels).to(device)\noptimizer = torch.optim.Adam(generator.parameters(), lr=2e-5)  # 小学习率\ncriterion = nn.CrossEntropyLoss()\n# 训练\ndef train(model, dataloader, epochs=10):\n    model.train()\n    for epoch in range(epochs):",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "dataloader",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)\n# 初始化模型\ngenerator = RAGGenerator(num_labels).to(device)\noptimizer = torch.optim.Adam(generator.parameters(), lr=2e-5)  # 小学习率\ncriterion = nn.CrossEntropyLoss()\n# 训练\ndef train(model, dataloader, epochs=10):\n    model.train()\n    for epoch in range(epochs):\n        total_loss = 0",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "generator",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "generator = RAGGenerator(num_labels).to(device)\noptimizer = torch.optim.Adam(generator.parameters(), lr=2e-5)  # 小学习率\ncriterion = nn.CrossEntropyLoss()\n# 训练\ndef train(model, dataloader, epochs=10):\n    model.train()\n    for epoch in range(epochs):\n        total_loss = 0\n        for input_ids, attention_mask, targets in dataloader:\n            input_ids, attention_mask, targets = (",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "optimizer",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "optimizer = torch.optim.Adam(generator.parameters(), lr=2e-5)  # 小学习率\ncriterion = nn.CrossEntropyLoss()\n# 训练\ndef train(model, dataloader, epochs=10):\n    model.train()\n    for epoch in range(epochs):\n        total_loss = 0\n        for input_ids, attention_mask, targets in dataloader:\n            input_ids, attention_mask, targets = (\n                input_ids.to(device),",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "criterion",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "description": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "peekOfCode": "criterion = nn.CrossEntropyLoss()\n# 训练\ndef train(model, dataloader, epochs=10):\n    model.train()\n    for epoch in range(epochs):\n        total_loss = 0\n        for input_ids, attention_mask, targets in dataloader:\n            input_ids, attention_mask, targets = (\n                input_ids.to(device),\n                attention_mask.to(device),",
+        "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
+        "documentation": {}
+    },
+    {
+        "label": "RAGDataset",
+        "kind": 6,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "class RAGDataset(Dataset):\n    def __init__(self, queries, answers):\n        self.queries = queries\n        self.answers = answers\n    def __len__(self):\n        return len(self.queries)\n    def __getitem__(self, idx):\n        query = self.queries[idx]\n        retrieved = retrieve(query)[0]\n        # 输入：检索到的答案作为提示",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "get_embedding",
+        "kind": 2,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "def get_embedding(text):\n    inputs = bert_tokenizer(\n        text, return_tensors=\"pt\", truncation=True, padding=True, max_length=max_length\n    ).to(device)\n    with torch.no_grad():\n        outputs = bert_model(**inputs)\n    return outputs.last_hidden_state[:, 0, :].squeeze().cpu().numpy()\ndoc_embeddings = [get_embedding(doc[\"question\"]) for doc in documents]\n# 检索函数\ndef retrieve(query, top_k=1):",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "retrieve",
+        "kind": 2,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "def retrieve(query, top_k=1):\n    query_emb = get_embedding(query)\n    similarities = cosine_similarity([query_emb], doc_embeddings)[0]\n    top_idx = np.argsort(similarities)[-top_k:][::-1]\n    return [documents[idx][\"answer\"] for idx in top_idx]\n# 数据集\nclass RAGDataset(Dataset):\n    def __init__(self, queries, answers):\n        self.queries = queries\n        self.answers = answers",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "train",
+        "kind": 2,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "def train(model, dataloader, epochs=10):\n    model.train()\n    for epoch in range(epochs):\n        total_loss = 0\n        for input_ids, attention_mask, target_ids in dataloader:\n            input_ids, attention_mask, target_ids = (\n                input_ids.to(device),\n                attention_mask.to(device),\n                target_ids.to(device),\n            )",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "rag_demo",
+        "kind": 2,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "def rag_demo(query):\n    retrieved = retrieve(query)[0]\n    print(f\"Retrieved: {retrieved}\")\n    input_text = f\"回答: {retrieved}\"\n    inputs = gpt2_tokenizer(\n        input_text,\n        return_tensors=\"pt\",\n        truncation=True,\n        padding=\"max_length\",\n        max_length=max_length,",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "embedding_dim",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "embedding_dim = 768  # DistilBERT 用于检索\nbatch_size = 1\nmax_length = 20  # 输入和生成的最大长度\ndevice = torch.device(\"cpu\")\n# 数据集\ndocuments = [\n    {\"question\": \"什么是人工智能？\", \"answer\": \"人工智能是模拟人类智能的技术。\"},\n    {\"question\": \"机器学习怎么工作？\", \"answer\": \"机器学习通过数据训练模型。\"},\n    {\"question\": \"深度学习有什么用？\", \"answer\": \"深度学习用于图像和语言处理。\"},\n]",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "batch_size",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "batch_size = 1\nmax_length = 20  # 输入和生成的最大长度\ndevice = torch.device(\"cpu\")\n# 数据集\ndocuments = [\n    {\"question\": \"什么是人工智能？\", \"answer\": \"人工智能是模拟人类智能的技术。\"},\n    {\"question\": \"机器学习怎么工作？\", \"answer\": \"机器学习通过数据训练模型。\"},\n    {\"question\": \"深度学习有什么用？\", \"answer\": \"深度学习用于图像和语言处理。\"},\n]\nqueries = [\"人工智能是什么？\", \"机器学习如何运作？\", \"深度学习能做什么？\"]",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "max_length",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "max_length = 20  # 输入和生成的最大长度\ndevice = torch.device(\"cpu\")\n# 数据集\ndocuments = [\n    {\"question\": \"什么是人工智能？\", \"answer\": \"人工智能是模拟人类智能的技术。\"},\n    {\"question\": \"机器学习怎么工作？\", \"answer\": \"机器学习通过数据训练模型。\"},\n    {\"question\": \"深度学习有什么用？\", \"answer\": \"深度学习用于图像和语言处理。\"},\n]\nqueries = [\"人工智能是什么？\", \"机器学习如何运作？\", \"深度学习能做什么？\"]\nanswers = [",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "device",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "device = torch.device(\"cpu\")\n# 数据集\ndocuments = [\n    {\"question\": \"什么是人工智能？\", \"answer\": \"人工智能是模拟人类智能的技术。\"},\n    {\"question\": \"机器学习怎么工作？\", \"answer\": \"机器学习通过数据训练模型。\"},\n    {\"question\": \"深度学习有什么用？\", \"answer\": \"深度学习用于图像和语言处理。\"},\n]\nqueries = [\"人工智能是什么？\", \"机器学习如何运作？\", \"深度学习能做什么？\"]\nanswers = [\n    \"人工智能是模拟人类智能的技术。\",",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "documents",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "documents = [\n    {\"question\": \"什么是人工智能？\", \"answer\": \"人工智能是模拟人类智能的技术。\"},\n    {\"question\": \"机器学习怎么工作？\", \"answer\": \"机器学习通过数据训练模型。\"},\n    {\"question\": \"深度学习有什么用？\", \"answer\": \"深度学习用于图像和语言处理。\"},\n]\nqueries = [\"人工智能是什么？\", \"机器学习如何运作？\", \"深度学习能做什么？\"]\nanswers = [\n    \"人工智能是模拟人类智能的技术。\",\n    \"机器学习通过数据训练模型。\",\n    \"深度学习用于图像和语言处理。\",",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "queries",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "queries = [\"人工智能是什么？\", \"机器学习如何运作？\", \"深度学习能做什么？\"]\nanswers = [\n    \"人工智能是模拟人类智能的技术。\",\n    \"机器学习通过数据训练模型。\",\n    \"深度学习用于图像和语言处理。\",\n]\n# 加载模型和分词器\nbert_tokenizer = DistilBertTokenizer.from_pretrained(\"distilbert-base-uncased\")\nbert_model = DistilBertModel.from_pretrained(\"distilbert-base-uncased\").to(device)\nbert_model.eval()",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "answers",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "answers = [\n    \"人工智能是模拟人类智能的技术。\",\n    \"机器学习通过数据训练模型。\",\n    \"深度学习用于图像和语言处理。\",\n]\n# 加载模型和分词器\nbert_tokenizer = DistilBertTokenizer.from_pretrained(\"distilbert-base-uncased\")\nbert_model = DistilBertModel.from_pretrained(\"distilbert-base-uncased\").to(device)\nbert_model.eval()\ngpt2_tokenizer = GPT2Tokenizer.from_pretrained(\"distilgpt2\")",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "bert_tokenizer",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "bert_tokenizer = DistilBertTokenizer.from_pretrained(\"distilbert-base-uncased\")\nbert_model = DistilBertModel.from_pretrained(\"distilbert-base-uncased\").to(device)\nbert_model.eval()\ngpt2_tokenizer = GPT2Tokenizer.from_pretrained(\"distilgpt2\")\ngpt2_model = GPT2LMHeadModel.from_pretrained(\"distilgpt2\").to(device)\n# 为 GPT2 添加 pad token（DistilGPT2 默认无 padding）\ngpt2_tokenizer.pad_token = gpt2_tokenizer.eos_token\ngpt2_model.config.pad_token_id = gpt2_tokenizer.eos_token_id\n# 生成嵌入（用于检索）\ndef get_embedding(text):",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "bert_model",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "bert_model = DistilBertModel.from_pretrained(\"distilbert-base-uncased\").to(device)\nbert_model.eval()\ngpt2_tokenizer = GPT2Tokenizer.from_pretrained(\"distilgpt2\")\ngpt2_model = GPT2LMHeadModel.from_pretrained(\"distilgpt2\").to(device)\n# 为 GPT2 添加 pad token（DistilGPT2 默认无 padding）\ngpt2_tokenizer.pad_token = gpt2_tokenizer.eos_token\ngpt2_model.config.pad_token_id = gpt2_tokenizer.eos_token_id\n# 生成嵌入（用于检索）\ndef get_embedding(text):\n    inputs = bert_tokenizer(",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "gpt2_tokenizer",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "gpt2_tokenizer = GPT2Tokenizer.from_pretrained(\"distilgpt2\")\ngpt2_model = GPT2LMHeadModel.from_pretrained(\"distilgpt2\").to(device)\n# 为 GPT2 添加 pad token（DistilGPT2 默认无 padding）\ngpt2_tokenizer.pad_token = gpt2_tokenizer.eos_token\ngpt2_model.config.pad_token_id = gpt2_tokenizer.eos_token_id\n# 生成嵌入（用于检索）\ndef get_embedding(text):\n    inputs = bert_tokenizer(\n        text, return_tensors=\"pt\", truncation=True, padding=True, max_length=max_length\n    ).to(device)",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "gpt2_model",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "gpt2_model = GPT2LMHeadModel.from_pretrained(\"distilgpt2\").to(device)\n# 为 GPT2 添加 pad token（DistilGPT2 默认无 padding）\ngpt2_tokenizer.pad_token = gpt2_tokenizer.eos_token\ngpt2_model.config.pad_token_id = gpt2_tokenizer.eos_token_id\n# 生成嵌入（用于检索）\ndef get_embedding(text):\n    inputs = bert_tokenizer(\n        text, return_tensors=\"pt\", truncation=True, padding=True, max_length=max_length\n    ).to(device)\n    with torch.no_grad():",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "gpt2_tokenizer.pad_token",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "gpt2_tokenizer.pad_token = gpt2_tokenizer.eos_token\ngpt2_model.config.pad_token_id = gpt2_tokenizer.eos_token_id\n# 生成嵌入（用于检索）\ndef get_embedding(text):\n    inputs = bert_tokenizer(\n        text, return_tensors=\"pt\", truncation=True, padding=True, max_length=max_length\n    ).to(device)\n    with torch.no_grad():\n        outputs = bert_model(**inputs)\n    return outputs.last_hidden_state[:, 0, :].squeeze().cpu().numpy()",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "gpt2_model.config.pad_token_id",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "gpt2_model.config.pad_token_id = gpt2_tokenizer.eos_token_id\n# 生成嵌入（用于检索）\ndef get_embedding(text):\n    inputs = bert_tokenizer(\n        text, return_tensors=\"pt\", truncation=True, padding=True, max_length=max_length\n    ).to(device)\n    with torch.no_grad():\n        outputs = bert_model(**inputs)\n    return outputs.last_hidden_state[:, 0, :].squeeze().cpu().numpy()\ndoc_embeddings = [get_embedding(doc[\"question\"]) for doc in documents]",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "doc_embeddings",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "doc_embeddings = [get_embedding(doc[\"question\"]) for doc in documents]\n# 检索函数\ndef retrieve(query, top_k=1):\n    query_emb = get_embedding(query)\n    similarities = cosine_similarity([query_emb], doc_embeddings)[0]\n    top_idx = np.argsort(similarities)[-top_k:][::-1]\n    return [documents[idx][\"answer\"] for idx in top_idx]\n# 数据集\nclass RAGDataset(Dataset):\n    def __init__(self, queries, answers):",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "dataset",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "dataset = RAGDataset(queries, answers)\ndataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)\n# 冻结部分层（优化 CPU）\n# for param in gpt2_model.transformer.parameters():\n#     param.requires_grad = False  # 冻结 Transformer 层，只训输出层\n# optimizer = torch.optim.Adam(gpt2_model.parameters(), lr=2e-5)\n# 冻结 Transformer 层\nfor param in gpt2_model.transformer.parameters():\n    param.requires_grad = False  # 只冻结 Transformer，输出层仍可训练\nfor param in gpt2_model.lm_head.parameters():",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "dataloader",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)\n# 冻结部分层（优化 CPU）\n# for param in gpt2_model.transformer.parameters():\n#     param.requires_grad = False  # 冻结 Transformer 层，只训输出层\n# optimizer = torch.optim.Adam(gpt2_model.parameters(), lr=2e-5)\n# 冻结 Transformer 层\nfor param in gpt2_model.transformer.parameters():\n    param.requires_grad = False  # 只冻结 Transformer，输出层仍可训练\nfor param in gpt2_model.lm_head.parameters():\n    param.requires_grad = True  # 确保输出层可训练",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "optimizer",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "optimizer = torch.optim.Adam(\n    filter(lambda p: p.requires_grad, gpt2_model.parameters()), lr=2e-5\n)\ncriterion = nn.CrossEntropyLoss(ignore_index=gpt2_tokenizer.pad_token_id)\n# 训练\ndef train(model, dataloader, epochs=10):\n    model.train()\n    for epoch in range(epochs):\n        total_loss = 0\n        for input_ids, attention_mask, target_ids in dataloader:",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "documentation": {}
+    },
+    {
+        "label": "criterion",
+        "kind": 5,
+        "importPath": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "description": "pytorch.learn1.005_RAG_02_DistilGPT2",
+        "peekOfCode": "criterion = nn.CrossEntropyLoss(ignore_index=gpt2_tokenizer.pad_token_id)\n# 训练\ndef train(model, dataloader, epochs=10):\n    model.train()\n    for epoch in range(epochs):\n        total_loss = 0\n        for input_ids, attention_mask, target_ids in dataloader:\n            input_ids, attention_mask, target_ids = (\n                input_ids.to(device),\n                attention_mask.to(device),",
+        "detail": "pytorch.learn1.005_RAG_02_DistilGPT2",
         "documentation": {}
     },
     {
