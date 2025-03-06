@@ -1898,7 +1898,7 @@
         "kind": 2,
         "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
         "description": "pytorch.learn1.005_RAG_01_DistilBERT",
-        "peekOfCode": "def train(model, dataloader, epochs=10):\n    model.train()\n    for epoch in range(epochs):\n        total_loss = 0\n        for input_ids, attention_mask, targets in dataloader:\n            input_ids, attention_mask, targets = (\n                input_ids.to(device),\n                attention_mask.to(device),\n                targets.to(device),\n            )",
+        "peekOfCode": "def train(model, dataloader, epochs=100):\n    model.train()\n    for epoch in range(epochs):\n        total_loss = 0\n        for input_ids, attention_mask, targets in dataloader:\n            input_ids, attention_mask, targets = (\n                input_ids.to(device),\n                attention_mask.to(device),\n                targets.to(device),\n            )",
         "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
         "documentation": {}
     },
@@ -1916,7 +1916,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
         "description": "pytorch.learn1.005_RAG_01_DistilBERT",
-        "peekOfCode": "embedding_dim = 768  # DistilBERT 输出维度\nbatch_size = 1  # 小批量，CPU 友好\nmax_length = 20  # 短序列，减少内存\nnum_labels = 3  # 假设 3 个回答类别（简化）\ndevice = torch.device(\"cpu\")\n# 模拟文档数据集（FAQ）\ndocuments = [\n    {\"question\": \"什么是人工智能？\", \"answer\": \"人工智能是模拟人类智能的技术。\"},\n    {\"question\": \"机器学习怎么工作？\", \"answer\": \"机器学习通过数据训练模型。\"},\n    {\"question\": \"深度学习有什么用？\", \"answer\": \"深度学习用于图像和语言处理。\"},",
+        "peekOfCode": "embedding_dim = 768  # DistilBERT 输出维度\nbatch_size = 3  # 小批量，CPU 友好\nmax_length = 20  # 短序列，减少内存(max_length = 20)\nnum_labels = 3  # 假设 3 个回答类别（简化）\ndevice = torch.device(\"cpu\")\n# 模拟文档数据集（FAQ）\ndocuments = [\n    {\"question\": \"什么是人工智能？\", \"answer\": \"人工智能是模拟人类智能的技术。\"},\n    {\"question\": \"机器学习怎么工作？\", \"answer\": \"机器学习通过数据训练模型。\"},\n    {\"question\": \"深度学习有什么用？\", \"answer\": \"深度学习用于图像和语言处理。\"},",
         "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
         "documentation": {}
     },
@@ -1925,7 +1925,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
         "description": "pytorch.learn1.005_RAG_01_DistilBERT",
-        "peekOfCode": "batch_size = 1  # 小批量，CPU 友好\nmax_length = 20  # 短序列，减少内存\nnum_labels = 3  # 假设 3 个回答类别（简化）\ndevice = torch.device(\"cpu\")\n# 模拟文档数据集（FAQ）\ndocuments = [\n    {\"question\": \"什么是人工智能？\", \"answer\": \"人工智能是模拟人类智能的技术。\"},\n    {\"question\": \"机器学习怎么工作？\", \"answer\": \"机器学习通过数据训练模型。\"},\n    {\"question\": \"深度学习有什么用？\", \"answer\": \"深度学习用于图像和语言处理。\"},\n]",
+        "peekOfCode": "batch_size = 3  # 小批量，CPU 友好\nmax_length = 20  # 短序列，减少内存(max_length = 20)\nnum_labels = 3  # 假设 3 个回答类别（简化）\ndevice = torch.device(\"cpu\")\n# 模拟文档数据集（FAQ）\ndocuments = [\n    {\"question\": \"什么是人工智能？\", \"answer\": \"人工智能是模拟人类智能的技术。\"},\n    {\"question\": \"机器学习怎么工作？\", \"answer\": \"机器学习通过数据训练模型。\"},\n    {\"question\": \"深度学习有什么用？\", \"answer\": \"深度学习用于图像和语言处理。\"},\n]",
         "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
         "documentation": {}
     },
@@ -1934,7 +1934,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
         "description": "pytorch.learn1.005_RAG_01_DistilBERT",
-        "peekOfCode": "max_length = 20  # 短序列，减少内存\nnum_labels = 3  # 假设 3 个回答类别（简化）\ndevice = torch.device(\"cpu\")\n# 模拟文档数据集（FAQ）\ndocuments = [\n    {\"question\": \"什么是人工智能？\", \"answer\": \"人工智能是模拟人类智能的技术。\"},\n    {\"question\": \"机器学习怎么工作？\", \"answer\": \"机器学习通过数据训练模型。\"},\n    {\"question\": \"深度学习有什么用？\", \"answer\": \"深度学习用于图像和语言处理。\"},\n]\n# 加载 DistilBERT（用于检索嵌入）",
+        "peekOfCode": "max_length = 20  # 短序列，减少内存(max_length = 20)\nnum_labels = 3  # 假设 3 个回答类别（简化）\ndevice = torch.device(\"cpu\")\n# 模拟文档数据集（FAQ）\ndocuments = [\n    {\"question\": \"什么是人工智能？\", \"answer\": \"人工智能是模拟人类智能的技术。\"},\n    {\"question\": \"机器学习怎么工作？\", \"answer\": \"机器学习通过数据训练模型。\"},\n    {\"question\": \"深度学习有什么用？\", \"answer\": \"深度学习用于图像和语言处理。\"},\n]\n# 加载 DistilBERT（用于检索嵌入）",
         "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
         "documentation": {}
     },
@@ -2015,7 +2015,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
         "description": "pytorch.learn1.005_RAG_01_DistilBERT",
-        "peekOfCode": "dataset = RAGDataset(queries, answers)\ndataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)\n# 初始化模型\ngenerator = RAGGenerator(num_labels).to(device)\noptimizer = torch.optim.Adam(generator.parameters(), lr=2e-5)  # 小学习率\ncriterion = nn.CrossEntropyLoss()\n# 训练\ndef train(model, dataloader, epochs=10):\n    model.train()\n    for epoch in range(epochs):",
+        "peekOfCode": "dataset = RAGDataset(queries, answers)\ndataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)\n# 初始化模型\ngenerator = RAGGenerator(num_labels).to(device)\noptimizer = torch.optim.Adam(generator.parameters(), lr=2e-5)  # 小学习率\ncriterion = nn.CrossEntropyLoss()\n# 训练\ndef train(model, dataloader, epochs=100):\n    model.train()\n    for epoch in range(epochs):",
         "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
         "documentation": {}
     },
@@ -2024,7 +2024,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
         "description": "pytorch.learn1.005_RAG_01_DistilBERT",
-        "peekOfCode": "dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)\n# 初始化模型\ngenerator = RAGGenerator(num_labels).to(device)\noptimizer = torch.optim.Adam(generator.parameters(), lr=2e-5)  # 小学习率\ncriterion = nn.CrossEntropyLoss()\n# 训练\ndef train(model, dataloader, epochs=10):\n    model.train()\n    for epoch in range(epochs):\n        total_loss = 0",
+        "peekOfCode": "dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)\n# 初始化模型\ngenerator = RAGGenerator(num_labels).to(device)\noptimizer = torch.optim.Adam(generator.parameters(), lr=2e-5)  # 小学习率\ncriterion = nn.CrossEntropyLoss()\n# 训练\ndef train(model, dataloader, epochs=100):\n    model.train()\n    for epoch in range(epochs):\n        total_loss = 0",
         "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
         "documentation": {}
     },
@@ -2033,7 +2033,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
         "description": "pytorch.learn1.005_RAG_01_DistilBERT",
-        "peekOfCode": "generator = RAGGenerator(num_labels).to(device)\noptimizer = torch.optim.Adam(generator.parameters(), lr=2e-5)  # 小学习率\ncriterion = nn.CrossEntropyLoss()\n# 训练\ndef train(model, dataloader, epochs=10):\n    model.train()\n    for epoch in range(epochs):\n        total_loss = 0\n        for input_ids, attention_mask, targets in dataloader:\n            input_ids, attention_mask, targets = (",
+        "peekOfCode": "generator = RAGGenerator(num_labels).to(device)\noptimizer = torch.optim.Adam(generator.parameters(), lr=2e-5)  # 小学习率\ncriterion = nn.CrossEntropyLoss()\n# 训练\ndef train(model, dataloader, epochs=100):\n    model.train()\n    for epoch in range(epochs):\n        total_loss = 0\n        for input_ids, attention_mask, targets in dataloader:\n            input_ids, attention_mask, targets = (",
         "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
         "documentation": {}
     },
@@ -2042,7 +2042,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
         "description": "pytorch.learn1.005_RAG_01_DistilBERT",
-        "peekOfCode": "optimizer = torch.optim.Adam(generator.parameters(), lr=2e-5)  # 小学习率\ncriterion = nn.CrossEntropyLoss()\n# 训练\ndef train(model, dataloader, epochs=10):\n    model.train()\n    for epoch in range(epochs):\n        total_loss = 0\n        for input_ids, attention_mask, targets in dataloader:\n            input_ids, attention_mask, targets = (\n                input_ids.to(device),",
+        "peekOfCode": "optimizer = torch.optim.Adam(generator.parameters(), lr=2e-5)  # 小学习率\ncriterion = nn.CrossEntropyLoss()\n# 训练\ndef train(model, dataloader, epochs=100):\n    model.train()\n    for epoch in range(epochs):\n        total_loss = 0\n        for input_ids, attention_mask, targets in dataloader:\n            input_ids, attention_mask, targets = (\n                input_ids.to(device),",
         "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
         "documentation": {}
     },
@@ -2051,7 +2051,7 @@
         "kind": 5,
         "importPath": "pytorch.learn1.005_RAG_01_DistilBERT",
         "description": "pytorch.learn1.005_RAG_01_DistilBERT",
-        "peekOfCode": "criterion = nn.CrossEntropyLoss()\n# 训练\ndef train(model, dataloader, epochs=10):\n    model.train()\n    for epoch in range(epochs):\n        total_loss = 0\n        for input_ids, attention_mask, targets in dataloader:\n            input_ids, attention_mask, targets = (\n                input_ids.to(device),\n                attention_mask.to(device),",
+        "peekOfCode": "criterion = nn.CrossEntropyLoss()\n# 训练\ndef train(model, dataloader, epochs=100):\n    model.train()\n    for epoch in range(epochs):\n        total_loss = 0\n        for input_ids, attention_mask, targets in dataloader:\n            input_ids, attention_mask, targets = (\n                input_ids.to(device),\n                attention_mask.to(device),",
         "detail": "pytorch.learn1.005_RAG_01_DistilBERT",
         "documentation": {}
     },
