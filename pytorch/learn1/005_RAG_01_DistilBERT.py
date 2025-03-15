@@ -107,6 +107,7 @@ dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 generator = RAGGenerator(num_labels).to(device)
 optimizer = torch.optim.Adam(generator.parameters(), lr=2e-5)  # 小学习率
 criterion = nn.CrossEntropyLoss()
+# todo CrossEntropyLoss对照的是非独热编码
 
 
 # 训练
